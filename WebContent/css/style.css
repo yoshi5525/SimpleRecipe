@@ -1,0 +1,35 @@
+* {
+  line-height: 1.4em;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.w-65 {
+  width: 65%;
+}
+
+.bg-light-yellow {
+  background-color: #f1f5bc;
+}
+
+.bg-light-pink {
+  background-color: #f7e4e4;
+}
+
+.bg-light-green {
+  background-color: #e4f7e8;
+}
+
+.bg-light-blue {
+  background-color: #d9d9fa;
+}
+
+.bg-light-skyblue {
+  background-color: #d9f9fa;
+}
