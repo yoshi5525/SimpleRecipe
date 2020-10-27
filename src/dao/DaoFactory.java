@@ -6,6 +6,14 @@ import javax.sql.DataSource;
 
 public class DaoFactory {
 
+	public static UserDao createUserDao() {
+		return new UserDaoImpl(getDataSource());
+	}
+
+	public static MenuDao createMenuDao() {
+		return new MenuDaoImpl(getDataSource());
+	}
+
 	private static DataSource getDataSource() {
 	    InitialContext ctx = null;
 	    DataSource ds = null;
