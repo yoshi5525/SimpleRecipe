@@ -16,7 +16,7 @@
 		<div class="container">
 			<div class="row">
 				<h1 class="h4 mb-0 col-12 col-md-7">
-					<a href="index.html">ずぼらレシピ</a>
+					<a href="index">ずぼらレシピ</a>
 				</h1>
 				<div class="search-box col-12 col-md-5">
 					<input type="text" placeholder="料理名を入力">
@@ -29,7 +29,7 @@
 	<main>
 		<div class="container bg-light-skyblue pt-4 pb-4">
 			<div class="form mx-auto w-50">
-				<form action="POST">
+				<form action="" method="post">
 					<p class="mb-0">
 						写真<br>
 						<div class="preview-img mb-2">
@@ -87,7 +87,7 @@
 					</p>
 				</form>
 				<p class="mt-3">
-					<a href="index.html">トップページへ戻る</a>
+					<a href="index">トップページへ戻る</a>
 				</p>
 			</div>
 		</div>
@@ -96,7 +96,7 @@
 	<footer class="bg-light-yellow pt-3 pb-3">
 		<div class="container">
 			<p class="text-center mb-0">
-				<a href="index.html">&copy;2020 All rights reserved.</a>
+				<a href="index">&copy;2020 All rights reserved.</a>
 			</p>
 		</div>
 	</footer>
