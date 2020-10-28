@@ -15,7 +15,7 @@
     <header class="bg-light-yellow p-3">
         <div class="container">
             <div class="row">
-                <h1 class="h4 mb-0 col-12 col-md-7"><a href="index.html">ずぼらレシピ</a></h1>
+                <h1 class="h4 mb-0 col-12 col-md-7"><a href="index">ずぼらレシピ</a></h1>
                 <div class="search-box col-12 col-md-5">
                     <input type="text" placeholder="料理名を入力">
                     <button class="search-btn">検索</button>
@@ -193,7 +193,7 @@
 
     <footer class="bg-light-yellow pt-3 pb-3">
         <div class="container">
-            <p class="text-center mb-0"><a href="index.html">&copy;2020 All rights reserved.</a></p>
+            <p class="text-center mb-0"><a href="index">&copy;2020 All rights reserved.</a></p>
         </div>
     </footer>
 </body>
