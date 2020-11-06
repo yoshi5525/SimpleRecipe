@@ -8,17 +8,34 @@ public class Menu {
 	private String foodstuff;
 	private String image;
 	private Integer userId;
+	private Integer tagId;
+	private String tagName;
+	private Integer idMenuFood;
+	private Integer foodQuantity;
+	private Integer foodId;
+	private Integer idFood;
+	private String foodName;
+
 
 	public Menu() {
 
 	}
-	public Menu(Integer id, String name, String recipe, String foodstuff, String image, Integer userId) {
+	public Menu(Integer id, String name, String recipe, String foodstuff, String image, Integer userId, Integer tagId,
+			String tagName, Integer idMenuFood, Integer foodQuantity, Integer foodId, Integer idFood, String foodName) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.recipe = recipe;
 		this.foodstuff = foodstuff;
 		this.image = image;
 		this.userId = userId;
+		this.tagId = tagId;
+		this.tagName = tagName;
+		this.idMenuFood = idMenuFood;
+		this.foodQuantity = foodQuantity;
+		this.foodId = foodId;
+		this.idFood = idFood;
+		this.foodName = foodName;
 	}
 
 	public Integer getId() {
@@ -56,6 +73,48 @@ public class Menu {
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+	public Integer getTagId() {
+		return tagId;
+	}
+	public void setTagId(Integer tagId) {
+		this.tagId = tagId;
+	}
+	public String getTagName() {
+		return tagName;
+	}
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+	public Integer getIdMenuFood() {
+		return idMenuFood;
+	}
+	public void setIdMenuFood(Integer idMenuFood) {
+		this.idMenuFood = idMenuFood;
+	}
+	public Integer getFoodQuantity() {
+		return foodQuantity;
+	}
+	public void setFoodQuantity(Integer foodQuantity) {
+		this.foodQuantity = foodQuantity;
+	}
+	public Integer getFoodId() {
+		return foodId;
+	}
+	public void setFoodId(Integer foodId) {
+		this.foodId = foodId;
+	}
+	public Integer getIdFood() {
+		return idFood;
+	}
+	public void setIdFood(Integer idFood) {
+		this.idFood = idFood;
+	}
+	public String getFoodName() {
+		return foodName;
+	}
+	public void setFoodName(String foodName) {
+		this.foodName = foodName;
 	}
 
 }

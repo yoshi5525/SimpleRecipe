@@ -28,12 +28,12 @@
 
 	<main>
 		<div class="container bg-light-skyblue pt-4 pb-4">
-			<div class="form mx-auto w-50">
-				<form action="" method="post">
+			<div class="form mx-auto w-75">
+				<form action="" method="post" enctype="multipart/form-data">
 					<p class="mb-0">
 						写真<br>
 						<div class="preview-img mb-2">
-							<img src="" alt="">
+							<img src="" width="400px">
 						</div>
 						<input type="file" name="image" id="menu-img">
 					</p>
@@ -43,21 +43,33 @@
 					</p>
 					<p>
 						料理区分<br>
-						<select name="teg_name">
+						<select name="tag_id">
 							<optgroup label="和食">
-								<option value="1">主菜(和)</option>
-								<option value="2">副菜(和)</option>
-								<option value="3">その他(和)</option>
+								<c:forEach var="tag" items="${tags}">
+									<c:choose>
+										<c:when test="${tag.id <= 10}">
+											<option value="<c:out value="${tag.id}" />"><c:out value="${tag.name}" /></option>
+										</c:when>
+									</c:choose>
+								</c:forEach>
 							</optgroup>
 							<optgroup label="中華">
-								<option value="11">主菜(中)</option>
-								<option value="12">副菜(中)</option>
-								<option value="13">その他(中)</option>
+								<c:forEach var="tag" items="${tags}">
+									<c:choose>
+										<c:when test="${tag.id > 10 && tag.id <= 20}">
+											<option value="<c:out value="${tag.id}" />"><c:out value="${tag.name}" /></option>
+										</c:when>
+									</c:choose>
+								</c:forEach>
 							</optgroup>
 							<optgroup label="洋食">
-								<option value="21">主菜(洋)</option>
-								<option value="22">副菜(洋)</option>
-								<option value="23">その他(洋)</option>
+								<c:forEach var="tag" items="${tags}">
+									<c:choose>
+										<c:when test="${tag.id > 20 && tag.id <= 30}">
+											<option value="<c:out value="${tag.id}" />"><c:out value="${tag.name}" /></option>
+										</c:when>
+									</c:choose>
+								</c:forEach>
 							</optgroup>
 						</select>
 					</p>
@@ -65,14 +77,18 @@
 						<div class="d-inline-block w-25">調味料</div>
 						<div class="d-inline-block w-50">調味料分量</div>
 						<div class="menu-food mb-2">
-							<select name="food" class="w-25">
-								<option value="シオ">シオ</option>
-								<option value="サトウ">サトウ</option>
-								<option value="ショウユ">ショウユ</option>
+							<select name="food_id" class="select-foods w-25">
+								<c:forEach var="food" items="${foods}">
+									<option value="<c:out value="${food.id}" />"><c:out value="${food.name}" /></option>
+								</c:forEach>
 							</select>
-							<input type="number" name="quantity" size="20">
-							<input type="button" value="+" class="add"> <input type="button" value="－" class="del">
+							<input type="number" name="food_quantity" class="select-numbers" value="0" size="20" min="0" oninput="validity.valid||(value='');">
+							<input type="button" value="+" class="add">
+							<input type="button" value="－" class="del">
 						</div>
+					</p>
+					<p>
+						<input type="hidden" name="menu-food-length" value="1" id="menu-food-length">
 					</p>
 					<p>
 						食材<br>
@@ -83,7 +99,7 @@
 						<textarea name="recipe" cols="50" rows="8"></textarea>
 					</p>
 					<p class="mb-0">
-						<input type="submit" value="登録する">
+						<input type="submit" value="登録する" id="register">
 					</p>
 				</form>
 				<p class="mt-3">

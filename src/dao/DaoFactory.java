@@ -14,6 +14,18 @@ public class DaoFactory {
 		return new MenuDaoImpl(getDataSource());
 	}
 
+	public static FoodDao createFoodDao() {
+		return new FoodDaoImpl(getDataSource());
+	}
+
+	public static MenuFoodDao createMenuFoodDao() {
+		return new MenuFoodDaoImpl(getDataSource());
+	}
+
+	public static TagDao createTagDao() {
+		return new TagDaoImpl(getDataSource());
+	}
+
 	private static DataSource getDataSource() {
 	    InitialContext ctx = null;
 	    DataSource ds = null;
