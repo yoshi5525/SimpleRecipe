@@ -10,7 +10,7 @@ public interface MenuDao {
 
 	Menu findById(Integer id) throws Exception;
 
-	void insert(Menu menu) throws Exception;
+	Integer insert(Menu menu) throws Exception;
 
 	void update(Menu menu) throws Exception;
 

@@ -27,48 +27,49 @@
 
 <main>
 	<div class="container bg-light-skyblue p-5">
-		<div class="recipe-left-box mx-auto">
+		<div class="recipe-left-box mx-auto mb-5">
+			<p class="h2 font-weight-bold"><c:out value="${menu.name}" /></p>
 			<div class="recipe-img">
-				<img src="" alt="料理の写真">
+				<img src="<%= request.getContextPath() %>/images/<c:out value="${menu.image}" />" alt="料理の写真" width="400px">
 			</div>
 		</div>
 		<div class="recipe-right-box">
-			<div class="recipe-box">
-				<div class="recipe-quantity-box">
+			<div class="recipe-box mb-5">
+				<div class="recipe-quantity-box mb-5">
 					<form action="GET">
+						<p class="h4">調味料算出用の食材重量および調理器具重量</p>
 						<p class="">
-							食材重量<br>
-							<input type="number">
+							食材総重量 (食材の総重量を入力してください)<br>
+							<input type="number" value="0" min="0" oninput="validity.valid||(value='');">
 						</p>
 						<p class="">
-							食材重量<br>
-							<input type="number">
-						</p>
-						<p class="">
-							鍋･ボウル重量
-							<input type="nuber">
+							鍋･ボウル重量 (計量した器具の重量を入力してください)<br>
+							<input type="number" value="0" min="0" oninput="validity.valid||(value='');">
 						</p>
 					</form>
 				</div>
 				<div class="recipe-result-box">
-					<p class="h5">必要調味料</p>
-					<p>シオ: 2.0g</p>
-					<p>サトウ: 5.0g</p>
+					<p class="h4">必要調味料</p>
+					<c:forEach var="menu_food" items="${menu_foods}">
+						<p><c:out value="${menu_food.foodName} ： ${menu_food.quantity}" /> グラム</p>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="recipe-list-box">
 				<div class="foodstuff-approximation">
-					<p>豚肉、人参、キャベツ、玉ねぎ</p>
+					<p class="h4">目安の材料(お好みで調整してください)</p>
+					<p><c:out value="${menu.foodstuff}" /></p>
 				</div>
 				<div class="recipe-approximation">
-					<p>
-						野菜を切る<br>
-						豚肉を炒める<br>
-						野菜を炒める<br>
-						完成
-					</p>
+					<p class="h4">目安のレシピ(お好みで調整してください)</p>
+					<p><c:out value="${menu.recipe}" />	</p>
 				</div>
 			</div>
+			<c:if test="${menu.userId == loginUserId}">
+				<p class="mb-0">
+					<a href="edit?id=<c:out value="${menu.id}" />"><button type="button">編集する</button></a>
+				</p>
+			</c:if>
 		</div>
 		<p class="mt-3">
 			<a href="index">トップページへ戻る</a>

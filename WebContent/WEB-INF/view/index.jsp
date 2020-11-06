@@ -41,10 +41,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+     							<c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 1}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -55,10 +60,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                                <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 2}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -69,10 +79,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                               <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 3}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -85,7 +100,7 @@
                 <div class="main-img-box col-sm-3 mb-4 ml-3">
                     <p class="h4 font-weight-bold">中華</p>
                     <div class="main-tag-img center-block">
-                        <img src="images/japanese_food.jpg" alt="和食の画像" class="img-fluid center-block">
+                        <img src="images/chanese_food.jpg" alt="和食の画像" class="img-fluid center-block">
                     </div>
                 </div>
                 <div class="main-menu-box col-sm-7 ml-5">
@@ -96,10 +111,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                                <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 11}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -110,10 +130,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                                <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 12}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -124,10 +149,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                                <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 13}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -151,10 +181,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                               <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 21}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -165,10 +200,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                                <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 22}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -179,10 +219,15 @@
                         </div>
                         <div class="menu-list-box col-8 ml-4">
                             <ul class="row text-center">
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">肉じゃが</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">鮭の塩焼き</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">豚の角煮</a></li>
-                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2"><a href="">卵焼き</a></li>
+                               <c:forEach var="menu" items="${menus}">
+	       							<c:choose>
+										<c:when test="${menu.tagId == 23}">
+			                                <li class="col-5 col-sm-10 col-md-5 col-xl-3 bg-light mr-3 mb-2">
+			                                	<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
+			                                </li>
+										</c:when>
+									</c:choose>
+   								</c:forEach>
                             </ul>
                         </div>
                     </div>
