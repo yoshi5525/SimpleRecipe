@@ -26,6 +26,7 @@ public class MenuFoodDaoImpl implements MenuFoodDao {
 		menuFood.setQuantity((Integer)rs.getObject("quantity"));
 		menuFood.setMenuId((Integer)rs.getObject("menu_id"));
 		menuFood.setFoodId((Integer)rs.getObject("food_id"));
+		menuFood.setSaltLevel(rs.getDouble("saltLevel"));
 		return menuFood;
 	}
 
@@ -36,6 +37,7 @@ public class MenuFoodDaoImpl implements MenuFoodDao {
 		menuFood.setMenuId((Integer)rs.getObject("menu_id"));
 		menuFood.setFoodId((Integer)rs.getObject("food_id"));
 		menuFood.setFoodName(rs.getString("name"));
+		menuFood.setSaltLevel(rs.getDouble("salt_level"));
 		return menuFood;
 	}
 

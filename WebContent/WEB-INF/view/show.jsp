@@ -40,18 +40,20 @@
 						<p class="h4">調味料算出用の食材重量および調理器具重量</p>
 						<p class="">
 							食材総重量 (食材の総重量を入力してください)<br>
-							<input type="number" value="0" min="0" oninput="validity.valid||(value='');">
+							<input type="number" value="100" min="0" max="100000" oninput="validity.valid||(value='');" style="width: 100px" class="text-right" id="calc-food"> グラム
 						</p>
 						<p class="">
 							鍋･ボウル重量 (計量した器具の重量を入力してください)<br>
-							<input type="number" value="0" min="0" oninput="validity.valid||(value='');">
+							<input type="number" value="0" min="0" max="100000" oninput="validity.valid||(value='');" style="width: 100px" class="text-right" id="calc-items"> グラム
 						</p>
+						<p class="text-danger font-weight-bold h4" id="calc-message"></p>
 					</form>
 				</div>
 				<div class="recipe-result-box">
 					<p class="h4">必要調味料</p>
 					<c:forEach var="menu_food" items="${menu_foods}">
-						<p><c:out value="${menu_food.foodName} ： ${menu_food.quantity}" /> グラム</p>
+						<p class="text-center d-inline-block mb-2" style="width: 160px"><c:out value="${menu_food.foodName}" /></p>
+						<input type="number" value="${menu_food.quantity}" disabled style="width: 120px" class="registered-food-quantity text-right bg-light"> グラム<br>
 					</c:forEach>
 				</div>
 			</div>
@@ -86,9 +88,7 @@
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-
-</script>
+<script type="text/javascript" src="js/calc.js"></script>
 </body>
 
 </html>

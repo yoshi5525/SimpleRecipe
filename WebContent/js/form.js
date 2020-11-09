@@ -1,5 +1,5 @@
-$(function () {
-	$("#menu-img").change(function (e) {
+$(function() {
+	$("#menu-img").change(function(e) {
         const file = e.target.files[0];
         reader = new FileReader();
         $preview = $(".preview-img");
@@ -9,8 +9,8 @@ $(function () {
             return false;
         }
 
-        reader.onload = (function (file) {
-            return function (e) {
+        reader.onload = (function(file) {
+            return function(e) {
                 $preview.empty();
                 $preview.append($('<img>').attr({
                     src: e.target.result,
@@ -23,13 +23,13 @@ $(function () {
     });
 
 
-	$(".add").click(function () {
+	$(".add").click(function() {
         const addForm = $(this).parent().clone(true).insertAfter($(this).parent());
 //        addForm.find("input[type='hidden']").removeAttr("value");
         $(this).parent().next().find(".select-numbers").val("0");
         $(this).parent().next().find(".select-foods").val("1");
     });
-    $(".del").click(function () {
+    $(".del").click(function() {
         const target = $(this).parent();
         var selectCount = $(".menu-food").length;
         if (selectCount > 1) {
