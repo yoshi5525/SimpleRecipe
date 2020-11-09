@@ -24,6 +24,7 @@ public class FoodDaoImpl implements FoodDao {
 		Food foods = new Food();
 		foods.setId((Integer) rs.getObject("id"));
 		foods.setName(rs.getString("name"));
+		foods.setSaltLevel((Double)rs.getDouble("salt_level"));
 		return foods;
 	}
 

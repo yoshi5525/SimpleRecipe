@@ -15,10 +15,12 @@
     <header class="bg-light-yellow p-3">
         <div class="container">
             <div class="row">
-                <h1 class="h4 mb-0 col-12 col-md-7"><a href="index">ずぼらレシピ</a></h1>
-                <div class="search-box col-12 col-md-5">
-                    <input type="text" placeholder="料理名を入力">
-                    <button class="search-btn">検索</button>
+                <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
+                <div class="search-box col-12 col-md-6">
+                	<form action="search" method="get" class="form-inline mr-2">
+	                    <input type="text" name="search" placeholder="料理名を入力" class="form-control mr-2 w-75">
+	                    <button type="submit" class="search-btn btn btn-outline-info my-2">検索</button>
+	                </form>
                 </div>
             </div>
         </div>

@@ -7,16 +7,18 @@ public class MenuFood {
 	private Integer menuId;
 	private Integer foodId;
 	private String foodName;
+	private Double saltLevel;
 
 	public MenuFood() {
 
 	}
-	public MenuFood(Integer id, Integer quantity, Integer menuId, Integer foodId, String foodName) {
+	public MenuFood(Integer id, Integer quantity, Integer menuId, Integer foodId, String foodName, Double saltLevel) {
 		this.id = id;
 		this.quantity = quantity;
 		this.menuId = menuId;
 		this.foodId = foodId;
 		this.foodName = foodName;
+		this.saltLevel = saltLevel;
 	}
 
 	public Integer getId() {
@@ -48,6 +50,12 @@ public class MenuFood {
 	}
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
+	}
+	public Double getSaltLevel() {
+		return saltLevel;
+	}
+	public void setSaltLevel(Double saltLevel) {
+		this.saltLevel = saltLevel;
 	}
 
 }
