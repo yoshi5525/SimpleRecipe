@@ -13,18 +13,22 @@
 
 <body>
 	<header class="bg-light-yellow p-3">
-		<div class="container">
-			<div class="row">
-				<h1 class="h4 mb-0 col-12 col-md-7">
-					<a href="index">ずぼらレシピ</a>
-				</h1>
-				<div class="search-box col-12 col-md-5">
-					<input type="text" placeholder="料理名を入力">
-					<button class="search-btn">検索</button>
-				</div>
-			</div>
-		</div>
-	</header>
+        <div class="container">
+            <div class="row">
+                <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
+                <div class="search-box col-12 col-md-6 position-relative">
+                	<form action="search" method="get" class="form-inline mr-2" id="search-form">
+	                    <input type="text" name="search-name" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
+	                    <button id="btn search-btn" class="search-btn btn btn-outline-info my-2">検索</button>
+	                </form>
+	                <div class="result-box position-absolute fixed-bottom">
+	                	<ul class="result-list bg-light">
+	                	</ul>
+	                </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
 	<main>
 		<div class="container bg-light-skyblue p-5">
@@ -56,6 +60,8 @@
 			</p>
 		</div>
 	</footer>
+
+	<script type="text/javascript" src="js/search.js"></script>
 </body>
 
 </html>
