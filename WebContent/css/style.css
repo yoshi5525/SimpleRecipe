@@ -33,3 +33,18 @@ li {
 .bg-light-skyblue {
   background-color: #d9f9fa;
 }
+
+.result-box {
+	top: 50px;
+	display: none;
+}
+
+.result-list {
+	height: 200px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.active {
+	display: block;
+}

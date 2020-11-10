@@ -49,6 +49,14 @@ public class MenuDaoImpl implements MenuDao {
 		return menu;
 	}
 
+	private Menu mapToSearchMenu(ResultSet rs) throws SQLException {
+		Menu menu = new Menu();
+		menu.setName(rs.getString("name"));
+		menu.setId((Integer) rs.getObject("id"));
+		menu.setTagId((Integer) rs.getObject("tag_id"));
+		return menu;
+	}
+
 
 	@Override
 	public List<Menu> findAll() throws Exception {
@@ -157,6 +165,31 @@ public class MenuDaoImpl implements MenuDao {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+
+	@Override
+	public List<Menu> findSearchName(String name) throws Exception {
+		List<Menu> menus = new ArrayList<>();
+
+		try (Connection con = ds.getConnection()) {
+			String sql = "SELECT id, name, tag_id FROM menus WHERE name LIKE ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			String searchName = "";
+			if (!name.equals("")) {
+				searchName = name + "%";
+			}
+			stmt.setString(1, searchName);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				menus.add(mapToSearchMenu(rs));
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return menus;
 	}
 
 }

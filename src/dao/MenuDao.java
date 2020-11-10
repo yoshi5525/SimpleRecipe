@@ -16,4 +16,6 @@ public interface MenuDao {
 
 	void delete(Integer id) throws Exception;
 
+	List<Menu> findSearchName(String name) throws Exception;
+
 }
