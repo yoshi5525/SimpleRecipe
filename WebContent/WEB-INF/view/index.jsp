@@ -1,6 +1,7 @@
-<%@ page pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -16,11 +17,15 @@
         <div class="container">
             <div class="row">
                 <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
-                <div class="search-box col-12 col-md-6">
-                	<form action="search" method="get" class="form-inline mr-2">
-	                    <input type="text" name="search" placeholder="料理名を入力" class="form-control mr-2 w-75">
-	                    <button type="submit" class="search-btn btn btn-outline-info my-2">検索</button>
+                <div class="search-box col-12 col-md-6 position-relative">
+                	<form action="search" method="get" class="form-inline mr-2" id="search-form">
+	                    <input type="text" name="search-name" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
+	                    <button id="btn search-btn" class="search-btn btn btn-outline-info my-2">検索</button>
 	                </form>
+	                <div class="result-box position-absolute fixed-bottom">
+	                	<ul class="result-list bg-light">
+	                	</ul>
+	                </div>
                 </div>
             </div>
         </div>
@@ -243,6 +248,9 @@
             <p class="text-center mb-0"><a href="index">&copy;2020 All rights reserved.</a></p>
         </div>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
 </body>
 
 </html>
