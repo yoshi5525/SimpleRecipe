@@ -48,3 +48,9 @@ li {
 .active {
 	display: block;
 }
+
+#calc-food, #calc-items {
+	font-size: 20px;
+	background: yellow;
+	height: 40px;
+}

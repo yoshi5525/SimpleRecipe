@@ -18,7 +18,7 @@
                 <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
                 <div class="search-box col-12 col-md-6 position-relative">
                 	<form action="search" method="get" class="form-inline mr-2" id="search-form">
-	                    <input type="text" name="search-name" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
+	                    <input type="text" name="search-name" autocomplete="off" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
 	                    <button id="btn search-btn" class="search-btn btn btn-outline-info my-2">検索</button>
 	                </form>
 	                <div class="result-box position-absolute fixed-bottom">
@@ -43,7 +43,11 @@
 					</p>
 					<p>
 						料理名<br>
-						<input type="text" name="name" size="40">
+						<input type="text" name="name" size="48">
+					</p>
+					<p>
+						料理名(ふりがな)<br>
+						<input type="text" name="kana" size="48">
 					</p>
 					<p>
 						料理区分<br>
@@ -86,7 +90,7 @@
 									<option value="<c:out value="${food.id}" />"><c:out value="${food.name}" /></option>
 								</c:forEach>
 							</select>
-							<input type="number" name="food_quantity" class="select-numbers" value="0" size="20" min="0" oninput="validity.valid||(value='');">
+							<input type="number" name="food_quantity" class="select-numbers text-right" value="0" size="20" min="0" oninput="validity.valid||(value='');">
 							<input type="button" value="+" class="add">
 							<input type="button" value="－" class="del">
 						</div>

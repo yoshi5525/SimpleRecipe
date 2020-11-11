@@ -4,6 +4,7 @@ public class Menu {
 
 	private Integer id;
 	private String name;
+	private String kana;
 	private String recipe;
 	private String foodstuff;
 	private String image;
@@ -20,11 +21,11 @@ public class Menu {
 	public Menu() {
 
 	}
-	public Menu(Integer id, String name, String recipe, String foodstuff, String image, Integer userId, Integer tagId,
+	public Menu(Integer id, String name, String kana, String recipe, String foodstuff, String image, Integer userId, Integer tagId,
 			String tagName, Integer idMenuFood, Integer foodQuantity, Integer foodId, Integer idFood, String foodName) {
-		super();
 		this.id = id;
 		this.name = name;
+		this.kana = kana;
 		this.recipe = recipe;
 		this.foodstuff = foodstuff;
 		this.image = image;
@@ -49,6 +50,12 @@ public class Menu {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getKana() {
+		return kana;
+	}
+	public void setKana(String kana) {
+		this.kana = kana;
 	}
 	public String getRecipe() {
 		return recipe;
