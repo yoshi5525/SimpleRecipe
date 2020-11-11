@@ -35,6 +35,7 @@ public class MenuDaoImpl implements MenuDao {
 		Menu menu = new Menu();
 		menu.setId((Integer) rs.getObject("id_menu"));
 		menu.setName(rs.getString("name"));
+		menu.setKana(rs.getString("kana"));
 		menu.setRecipe(rs.getString("recipe"));
 		menu.setFoodstuff(rs.getString("foodstuff"));
 		menu.setImage(rs.getString("image"));
@@ -83,7 +84,7 @@ public class MenuDaoImpl implements MenuDao {
 
 		try (Connection con = ds.getConnection()) {
 			String sql = "SELECT"
-						+ " menus.id AS id_menu, menus.name, recipe, foodstuff, image, user_id, tag_id, tags.name AS tag_name,"
+						+ " menus.id AS id_menu, menus.name, menus.kana, recipe, foodstuff, image, user_id, tag_id, tags.name AS tag_name,"
 						+ " menu_foods.id AS id_menu_food, menu_foods.quantity AS food_quantity, menu_foods.food_id,"
 						+ " foods.id AS id_food, foods.name AS food_name"
 						+ " FROM menus"
@@ -101,6 +102,32 @@ public class MenuDaoImpl implements MenuDao {
 			if (rs.next()) {
 				menu = mapToShowMenu(rs);
 			}
+
+			if (menu != null) {
+				String strFoodstuff = menu.getFoodstuff();
+				String replacedFoodstuff = strFoodstuff.replaceAll("、", "\n･");
+				replacedFoodstuff = replacedFoodstuff.replaceFirst("", "･");
+				menu.setFoodstuff(replacedFoodstuff);
+
+				String strRecipe = menu.getRecipe();
+				String replacedRecipe = null;
+
+				int line = strRecipe.split("。", - 1).length -1;
+				String[] arrayRecipe = strRecipe.split("。");
+				String changeText = "";
+				for (int i = 1; i <= line + 1; i++) {
+					if (i < line + 1) {
+						changeText = arrayRecipe[i - 1].replaceFirst("", i + ":");
+						changeText += arrayRecipe[i - 1].replaceFirst("$", "\n");
+						replacedRecipe += changeText;
+					} else {
+						changeText = arrayRecipe[i - 1].replaceFirst("", i + ":");
+						replacedRecipe += changeText;
+					}
+				}
+				replacedRecipe = replacedRecipe.replaceFirst("null", "");
+				menu.setRecipe(replacedRecipe);
+			}
 		} catch (Exception e) {
 			throw e;
 		}
@@ -113,15 +140,16 @@ public class MenuDaoImpl implements MenuDao {
 		Integer autoIncrementKey = 0;
 
 		try (Connection con = ds.getConnection()) {
-			String sql = "INSERT INTO menus (name, recipe, foodstuff, image, user_id, tag_id)"
-							+ " VALUES (?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO menus (name, kana, recipe, foodstuff, image, user_id, tag_id)"
+							+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, menu.getName());
-			stmt.setString(2, menu.getRecipe());
-			stmt.setString(3, menu.getFoodstuff());
-			stmt.setString(4, menu.getImage());
-			stmt.setObject(5, menu.getUserId());
-			stmt.setObject(6, menu.getTagId(), Types.INTEGER);
+			stmt.setString(2, menu.getKana());
+			stmt.setString(3, menu.getRecipe());
+			stmt.setString(4, menu.getFoodstuff());
+			stmt.setString(5, menu.getImage());
+			stmt.setObject(6, menu.getUserId());
+			stmt.setObject(7, menu.getTagId(), Types.INTEGER);
 			stmt.executeUpdate();
 
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -139,15 +167,16 @@ public class MenuDaoImpl implements MenuDao {
 	public void update(Menu menu) throws Exception {
 		try (Connection con = ds.getConnection()) {
 			String sql = "UPDATE menus SET"
-							+ " name = ?, recipe = ?, foodstuff = ?, image = ?, tag_id = ?"
+							+ " name = ?, kana = ?, recipe = ?, foodstuff = ?, image = ?, tag_id = ?"
 							+ " WHERE id = ?";
 			PreparedStatement stmt = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, menu.getName());
-			stmt.setString(2, menu.getRecipe());
-			stmt.setString(3, menu.getFoodstuff());
-			stmt.setString(4, menu.getImage());
-			stmt.setObject(5, menu.getTagId());
-			stmt.setObject(6, menu.getId(), Types.INTEGER);
+			stmt.setString(2, menu.getKana());
+			stmt.setString(3, menu.getRecipe());
+			stmt.setString(4, menu.getFoodstuff());
+			stmt.setString(5, menu.getImage());
+			stmt.setObject(6, menu.getTagId());
+			stmt.setObject(7, menu.getId(), Types.INTEGER);
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			throw e;
@@ -173,7 +202,8 @@ public class MenuDaoImpl implements MenuDao {
 		List<Menu> menus = new ArrayList<>();
 
 		try (Connection con = ds.getConnection()) {
-			String sql = "SELECT id, name, tag_id FROM menus WHERE name LIKE ?";
+			String sql = "SELECT id, name, tag_id FROM menus"
+						+ " WHERE name LIKE ? OR kana LIKE ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			String searchName = "";
@@ -181,6 +211,7 @@ public class MenuDaoImpl implements MenuDao {
 				searchName = name + "%";
 			}
 			stmt.setString(1, searchName);
+			stmt.setString(2, searchName);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {

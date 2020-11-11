@@ -80,6 +80,7 @@ public class MenuNewServlet extends HttpServlet {
 
 		String image = fileName;
 		String name = request.getParameter("name");
+		String kana = request.getParameter("kana");
 		String strTagId = request.getParameter("tag_id");
 		String foodstuff = request.getParameter("foodstuff");
 		String recipe = request.getParameter("recipe");
@@ -91,6 +92,7 @@ public class MenuNewServlet extends HttpServlet {
 		Menu menu = new Menu();
 		menu.setImage(image);
 		menu.setName(name);
+		menu.setKana(kana);
 		menu.setTagId(tagId);
 		menu.setFoodstuff(foodstuff);
 		menu.setRecipe(recipe);

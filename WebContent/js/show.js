@@ -37,6 +37,13 @@ $(function() {
 		}
 	});
 
+	$(function() {
+		var foodStuffLine = $("#foodstuff-text").val().match(/･/g).length * 25;
+		var recipeLine = $("#recipe-text").val().match(/:/g).length * 25;
+		$("#foodstuff-text").height(foodStuffLine);
+		$("#recipe-text").height(recipeLine);
+	});
+
 //	var numberFormat = [];
 //	numberFormat.push($("[data-type='number']"));
 //	for (var i = 0; i < numberFormat.length; i++) {

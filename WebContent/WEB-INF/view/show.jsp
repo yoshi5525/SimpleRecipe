@@ -17,7 +17,7 @@
                 <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
                 <div class="search-box col-12 col-md-6 position-relative">
                 	<form action="search" method="get" class="form-inline mr-2" id="search-form">
-	                    <input type="text" name="search-name" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
+	                    <input type="text" name="search-name" autocomplete="off" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
 	                    <button id="btn search-btn" class="search-btn btn btn-outline-info my-2">検索</button>
 	                </form>
 	                <div class="result-box position-absolute fixed-bottom">
@@ -31,55 +31,67 @@
 
 	<main>
 		<div class="container bg-light-skyblue p-5">
-			<div class="recipe-left-box mx-auto mb-5">
-				<p class="h2 font-weight-bold"><c:out value="${menu.name}" /></p>
-				<div class="recipe-img">
-					<img src="<%= request.getContextPath() %>/images/<c:out value="${menu.image}" />" alt="料理の写真" width="400px">
+			<div class="row">
+				<div class="recipe-left-box mx-auto mb-5 col-lg-5">
+					<p class="h2 font-weight-bold"><c:out value="${menu.name}" /></p>
+					<div class="recipe-img">
+						<img src="<%= request.getContextPath() %>/images/<c:out value="${menu.image}" />" alt="料理の写真" class="img-fluid center-block">
+					</div>
 				</div>
-			</div>
-			<div class="recipe-right-box">
-				<div class="recipe-box mb-5">
-					<div class="recipe-quantity-box mb-5">
-						<form action="GET">
-							<p class="h4">調味料算出用の食材重量および調理器具重量</p>
-							<p class="">
-								食材総重量 (食材の総重量を入力してください)<br>
-								<input type="number" value="100" min="0" max="100000" oninput="validity.valid||(value='');" style="width: 100px" class="text-right" id="calc-food"> グラム
+				<div class="recipe-right-box col-lg-7">
+					<div class="recipe-box mb-5">
+						<div class="recipe-quantity-box mb-5">
+							<form action="GET">
+								<p class="h4">調味料算出用の食材重量および調理器具重量</p>
+								<p class="font-weight-bold">
+									食材総重量<br>
+									※使用する食材の合計重量を入力してください<br>
+									<input type="number" value="100" min="0" max="100000" oninput="validity.valid||(value='');"
+										style="width: 100px" class="text-right ml-2" id="calc-food"> グラム
+								</p>
+								<p class="font-weight-bold">
+									鍋･ボウル重量<br>
+									※食材の重量計測時に使用した器具があればその重量を入力してください<br>
+									<input type="number" value="0" min="0" max="100000" oninput="validity.valid||(value='');"
+										style="width: 100px" class="text-right ml-2" id="calc-items"> グラム
+								</p>
+								<p class="text-danger font-weight-bold h4" id="calc-message"></p>
+							</form>
+						</div>
+						<div class="recipe-result-box">
+							<p class="h4">必要調味料</p>
+							<p class="font-weight-bold">
+								※あくまで目安です。<br>
+								※最初は調味料の8割を使用し、味が薄ければ追加するなどして目安としてご活用ください。
 							</p>
-							<p class="">
-								鍋･ボウル重量 (計量した器具の重量を入力してください)<br>
-								<input type="number" value="0" min="0" max="100000" oninput="validity.valid||(value='');" style="width: 100px" class="text-right" id="calc-items"> グラム
-							</p>
-							<p class="text-danger font-weight-bold h4" id="calc-message"></p>
-						</form>
+							<c:forEach var="menu_food" items="${menu_foods}">
+								<p class="text-center d-inline-block mb-2" style="width: 160px"><c:out value="${menu_food.foodName}" /></p>
+								<input type="number" value="${menu_food.quantity}" disabled style="width: 120px; font-size: 20px;" class="registered-food-quantity text-right bg-light"> グラム<br>
+							</c:forEach>
+						</div>
 					</div>
-					<div class="recipe-result-box">
-						<p class="h4">必要調味料</p>
-						<c:forEach var="menu_food" items="${menu_foods}">
-							<p class="text-center d-inline-block mb-2" style="width: 160px"><c:out value="${menu_food.foodName}" /></p>
-							<input type="number" value="${menu_food.quantity}" disabled style="width: 120px" class="registered-food-quantity text-right bg-light"> グラム<br>
-						</c:forEach>
+					<div class="recipe-list-box">
+						<div class="foodstuff-approximation">
+							<p class="h4">目安の材料</p>
+							<p>※食材の種類や分量はお好みで調整してください</p>
+							<textarea class="col-10 ml-2 bg-light" id="foodstuff-text" disabled><c:out value="${menu.foodstuff}" /></textarea>
+						</div>
+						<div class="recipe-approximation">
+							<p class="h4 mt-5">目安のレシピ</p>
+							<p>※お好みで調整してください</p>
+							<textarea class="col-10 ml-2 bg-light" id="recipe-text" disabled><c:out value="${menu.recipe}" /></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="recipe-list-box">
-					<div class="foodstuff-approximation">
-						<p class="h4">目安の材料(お好みで調整してください)</p>
-						<p><c:out value="${menu.foodstuff}" /></p>
-					</div>
-					<div class="recipe-approximation">
-						<p class="h4">目安のレシピ(お好みで調整してください)</p>
-						<p><c:out value="${menu.recipe}" />	</p>
-					</div>
-				</div>
-				<c:if test="${menu.userId == loginUserId}">
-					<p class="mb-0">
-						<a href="edit?id=<c:out value="${menu.id}" />"><button type="button">編集する</button></a>
+					<c:if test="${menu.userId == loginUserId}">
+						<p class="mb-0">
+							<a href="edit?id=<c:out value="${menu.id}" />"><button type="button">編集する</button></a>
+						</p>
+					</c:if>
+					<p class="mt-5">
+						<a href="index">トップページへ戻る</a>
 					</p>
-				</c:if>
+				</div>
 			</div>
-			<p class="mt-3">
-				<a href="index">トップページへ戻る</a>
-			</p>
 		</div>
 	</main>
 
@@ -92,7 +104,7 @@
 	</footer>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="js/calc.js"></script>
+	<script type="text/javascript" src="js/show.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
 </body>
 

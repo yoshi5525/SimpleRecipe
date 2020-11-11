@@ -72,12 +72,6 @@ public class MenuEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("UTF-8");
 
-		Part part = request.getPart("image");
-		String fileName = part.getSubmittedFileName();
-//		String path = request.getServletContext().getRealPath("/images/uploads");
-//		File filePath = new File(path);
-//		part.write(filePath + "/" + fileName);
-
 		String strMenuId = request.getParameter("menu_id");
 		Integer menuId = 0;
 		if (strMenuId != null) {
@@ -86,11 +80,11 @@ public class MenuEditServlet extends HttpServlet {
 
 		if (request.getParameter("delete") != null) {
 			try {
-				MenuDao menuDao = DaoFactory.createMenuDao();
-				menuDao.delete(menuId);
 				MenuFoodDao menuFoodDao = DaoFactory.createMenuFoodDao();
 				menuFoodDao.delete(menuId);
-				request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
+				MenuDao menuDao = DaoFactory.createMenuDao();
+				menuDao.delete(menuId);
+				response.sendRedirect("index");
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("index");
@@ -98,6 +92,11 @@ public class MenuEditServlet extends HttpServlet {
 			return;
 		}
 
+		Part part = request.getPart("image");
+		String fileName = part.getSubmittedFileName();
+//		String path = request.getServletContext().getRealPath("/images/uploads");
+//		File filePath = new File(path);
+//		part.write(filePath + "/" + fileName);
 
 		String image = fileName;
 		String name = request.getParameter("name");

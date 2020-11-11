@@ -42,4 +42,12 @@ $(function() {
     	var menuFoodLength = $(".menu-food").length;
     	$("#menu-food-length").val(menuFoodLength);
     });
+
+    $("#delete").click(function() {
+    	if (!confirm("本当に削除しますか？")) {
+    		return false;
+    	} else {
+    		return ture;
+    	}
+    });
 });
