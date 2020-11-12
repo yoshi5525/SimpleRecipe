@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String loginId = request.getParameter("login_id");
 		String loginPass = request.getParameter("login_pass");
+		String loginStatus = request.getParameter("login");
 
 		UserDao dao = DaoFactory.createUserDao();
 		User user = null;
@@ -45,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 		if (user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
+			session.setAttribute("loginStatus", loginStatus);
 			response.sendRedirect("new");
 		} else {
 			request.setAttribute("error", "ログインIDまたはパスワードが間違っています");

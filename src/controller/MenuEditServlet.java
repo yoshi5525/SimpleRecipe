@@ -100,9 +100,10 @@ public class MenuEditServlet extends HttpServlet {
 
 		String image = fileName;
 		String name = request.getParameter("name");
-		String strTagId = request.getParameter("tag_id");
+		String kana = request.getParameter("kana");
 		String foodstuff = request.getParameter("foodstuff");
 		String recipe = request.getParameter("recipe");
+		String strTagId = request.getParameter("tag_id");
 		Integer tagId = 0;
 		if (strTagId != null) {
 			tagId = Integer.parseInt(strTagId);
@@ -111,6 +112,7 @@ public class MenuEditServlet extends HttpServlet {
 		Menu menu = new Menu();
 		menu.setImage(image);
 		menu.setName(name);
+		menu.setKana(kana);
 		menu.setTagId(tagId);
 		menu.setFoodstuff(foodstuff);
 		menu.setRecipe(recipe);

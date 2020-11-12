@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -36,6 +38,15 @@ public class MenuNewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("UTF-8");
+
+		HttpSession session = request.getSession();
+		String loginStatus = (String) session.getAttribute("loginStatus");
+		if (loginStatus == null) {
+			response.sendRedirect("index");
+			return;
+		}
+
 		try {
 			FoodDao foodDao = DaoFactory.createFoodDao();
 			List<Food> foods = foodDao.findAll();
@@ -58,6 +69,20 @@ public class MenuNewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("UTF-8");
 
+		try {
+			FoodDao foodDao = DaoFactory.createFoodDao();
+			List<Food> foods = foodDao.findAll();
+			request.setAttribute("foods", foods);
+
+			TagDao tagDao = DaoFactory.createTagDao();
+			List<Tag> tags = tagDao.findAll();
+			request.setAttribute("tags", tags);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("index");
+		}
+
+
 		Part part = request.getPart("image");
 		String fileName = part.getSubmittedFileName();
 //		String path = request.getServletContext().getRealPath("/uploads");
@@ -65,6 +90,7 @@ public class MenuNewServlet extends HttpServlet {
 //		part.write(filePath + "/" + fileName);
 
 
+		// ログイン中のUserのIdをsession情報から取得
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		String userLoginId = user.getLoginId();
@@ -81,13 +107,88 @@ public class MenuNewServlet extends HttpServlet {
 		String image = fileName;
 		String name = request.getParameter("name");
 		String kana = request.getParameter("kana");
-		String strTagId = request.getParameter("tag_id");
 		String foodstuff = request.getParameter("foodstuff");
 		String recipe = request.getParameter("recipe");
+		String strTagId = request.getParameter("tag_id");
 		Integer tagId = 0;
 		if (strTagId != null) {
 			tagId = Integer.parseInt(strTagId);
 		}
+
+		String strMenuFoodLength = request.getParameter("menu-food-length");
+		Integer menuFoodLength = Integer.parseInt(strMenuFoodLength);
+
+		String[] strFoodIds = request.getParameterValues("food_id");
+		String[] strQuantities = request.getParameterValues("food_quantity");
+
+
+		// バリデーション
+	    boolean isValidated = true;
+
+	    if (name.isEmpty()) {
+	    	isValidated = false;
+	    	request.setAttribute("errorName", "料理名の入力は必須です！");
+	    } else if (name.length() >= 20) {
+	    	isValidated = false;
+	    	request.setAttribute("errorName", "料理名は20文字以下で入力してください！");
+	    }
+
+	    Pattern kanaPattern = Pattern.compile("/^[ぁ-ん][ぁ-んー]+$/");
+	    Matcher kanaMatcher = kanaPattern.matcher(kana);
+	    if (kana.isEmpty()) {
+	    	isValidated = false;
+	    	request.setAttribute("errorKana", "ふりがなの入力は必須です！");
+	    } else if (!kanaMatcher.matches()) {
+	    	isValidated = false;
+	    	request.setAttribute("errorKana", "全角ひらがなで入力してください！");
+	    } else {
+	    	isValidated = false;
+	    	request.setAttribute("errorKana", "ふりがなは40文字以下で入力してください！");
+	    }
+
+	    if (tagId == 0) {
+	    	isValidated = false;
+	    	request.setAttribute("errorTagId", "料理区分の選択は必須です！");
+	    }
+
+	    for (String strQuantitie: strQuantities) {
+	    	if (!strQuantitie.equals("") && Integer.parseInt(strQuantitie) < 0) {
+	    		isValidated = false;
+	    		request.setAttribute("errorQuantity", "調味料の分量は0以上で入力してください！");
+	    	}
+	    }
+
+	    if (isValidated == false) {
+	    	request.setAttribute("image", image);
+		    request.setAttribute("name", name);
+		    request.setAttribute("kana", kana);
+		    request.setAttribute("foodstuff", foodstuff);
+		    request.setAttribute("recipe", recipe);
+
+		    if (tagId == 0) {
+		    	request.setAttribute("tag_id", 1);
+		    } else {
+		    	request.setAttribute("tag_id", tagId);
+		    }
+
+		    Integer[] foodIds = new Integer[menuFoodLength];
+			Integer[] quantities = new Integer[menuFoodLength];
+			for (int i = 0; i < menuFoodLength; i++) {
+				if (!strFoodIds[i].equals(null)) {
+					foodIds[i] = Integer.parseInt(strFoodIds[i]);
+				}
+				if (!strQuantities[i].equals(null)) {
+					quantities[i] = Integer.parseInt(strQuantities[i]);
+				}
+			}
+		    request.setAttribute("foodIds", foodIds);
+		    request.setAttribute("quantities", quantities);
+
+		    request.setAttribute("errorMsg", "入力に不備があります！！");
+	    	request.getRequestDispatcher("/WEB-INF/view/new.jsp").forward(request, response);
+	    	return;
+	    }
+
 
 		Menu menu = new Menu();
 		menu.setImage(image);
@@ -106,15 +207,8 @@ public class MenuNewServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-
-		String strMenuFoodLength = request.getParameter("menu-food-length");
-		Integer menuFoodLength = Integer.parseInt(strMenuFoodLength);
 		Integer foodId = 0;
 		Integer quantity = 0;
-
-		String[] strFoodIds = request.getParameterValues("food_id");
-		String[] strQuantities = request.getParameterValues("food_quantity");
-
 		for (int i = 0; i < menuFoodLength; i++) {
 			if (strFoodIds[i] != null) {
 				foodId = Integer.parseInt(strFoodIds[i]);
@@ -122,13 +216,12 @@ public class MenuNewServlet extends HttpServlet {
 			if (strQuantities[i] != null) {
 				quantity = Integer.parseInt(strQuantities[i]);
 			}
-
 			MenuFood menuFood = new MenuFood();
 			menuFood.setQuantity(quantity);
 			menuFood.setMenuId(autoIncrementKey);
 			menuFood.setFoodId(foodId);
-			MenuFoodDao menuFoodDao = DaoFactory.createMenuFoodDao();
 
+			MenuFoodDao menuFoodDao = DaoFactory.createMenuFoodDao();
 			try {
 				menuFoodDao.insert(menuFood);
 			} catch (Exception e) {
