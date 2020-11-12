@@ -83,7 +83,7 @@
 						</div>
 					</div>
 					<c:if test="${menu.userId == loginUserId}">
-						<p class="mb-0">
+						<p class="mb-0 mt-4">
 							<a href="edit?id=<c:out value="${menu.id}" />"><button type="button">編集する</button></a>
 						</p>
 					</c:if>

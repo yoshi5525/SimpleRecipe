@@ -43,10 +43,13 @@
 						<input type="password" name="login_pass" size="40">
 					</p>
 					<p class="mb-0">
-						<input type="submit" value="ログインする">
+						<input type="submit" value="ログインする" name="login"><br>
 					</p>
 				</form>
-				<p class="mt-3">
+				<form action="logout" method="post"class="mt-3">
+					<input type="submit" value="ログアウトする" name="logout">
+				</form>
+				<p class="mt-5">
 					<a href="index">トップページへ戻る</a>
 				</p>
 			</div>

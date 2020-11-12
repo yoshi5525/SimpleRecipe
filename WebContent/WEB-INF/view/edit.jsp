@@ -39,7 +39,7 @@
 						<div class="preview-img mb-2">
 							<img src="<%= request.getContextPath() %>/images/<c:out value="${menu.image}" />" title="<c:out value="${menu.image}" />" width="400px">
 						</div>
-						<input type="file" name="image" id="menu-img">
+						<input type="file" name="image" id="menu-img" value="<c:out value="${menu.image}" />">
 					</p>
 					<p>
 						料理名<br>
