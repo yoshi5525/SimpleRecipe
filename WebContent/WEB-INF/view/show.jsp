@@ -11,23 +11,8 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 
-    <header class="bg-light-yellow p-3">
-        <div class="container">
-            <div class="row">
-                <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
-                <div class="search-box col-12 col-md-6 position-relative">
-                	<form action="search" method="get" class="form-inline mr-2" id="search-form">
-	                    <input type="text" name="search-name" autocomplete="off" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
-	                    <button id="btn search-btn" class="search-btn btn btn-outline-info my-2">検索</button>
-	                </form>
-	                <div class="result-box position-absolute fixed-bottom">
-	                	<ul class="result-list bg-light">
-	                	</ul>
-	                </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<body>
+    <c:import url="header.jsp" />
 
 	<main>
 		<div class="container bg-light-skyblue p-5">
@@ -35,7 +20,7 @@
 				<div class="recipe-left-box mx-auto mb-5 col-lg-5">
 					<p class="h2 font-weight-bold"><c:out value="${menu.name}" /></p>
 					<div class="recipe-img">
-						<img src="<%= request.getContextPath() %>/images/<c:out value="${menu.image}" />" alt="料理の写真" class="img-fluid center-block">
+						<img src="<%= request.getContextPath() %>/images/uploads/<c:out value="${menu.image}" />" alt="料理の写真" class="img-fluid center-block">
 					</div>
 				</div>
 				<div class="recipe-right-box col-lg-7">
@@ -95,15 +80,10 @@
 		</div>
 	</main>
 
-	<footer class="bg-light-yellow pt-3 pb-3">
-		<div class="container">
-			<p class="text-center mb-0">
-				<a href="index">&copy;2020 All rights reserved.</a>
-			</p>
-		</div>
-	</footer>
+	<c:import url="footer.jsp"/>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/form.js"></script>
 	<script type="text/javascript" src="js/show.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
 </body>

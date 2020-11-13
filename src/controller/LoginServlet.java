@@ -24,6 +24,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("UTF-8");
+
+		HttpSession session = request.getSession();
+		String loginStatus = (String) session.getAttribute("loginStatus");
+		if (loginStatus == null) {
+			request.setAttribute("loginStatus", loginStatus);
+		}
+
 		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 	}
 

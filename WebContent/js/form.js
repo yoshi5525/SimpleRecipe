@@ -1,4 +1,18 @@
 $(function() {
+	$("#login-btn").click(function(e) {
+		$("#link-login").on("click", myHandler);
+	});
+	$("#login-btn").click((function(e) {
+		let count = 0;
+		return function() {
+			count++;
+		    if (count == 7) {
+		    	$("#link-login").off("click", myHandler);
+		    }
+		}
+	})())
+
+
 	$("#menu-img").change(function(e) {
         const file = e.target.files[0];
         reader = new FileReader();
@@ -25,7 +39,6 @@ $(function() {
 
 	$(".add").click(function() {
         const addForm = $(this).parent().clone(true).insertAfter($(this).parent());
-//        addForm.find("input[type='hidden']").removeAttr("value");
         $(this).parent().next().find(".select-numbers").val("0");
         $(this).parent().next().find(".select-foods").val("1");
     });
@@ -50,4 +63,9 @@ $(function() {
     		return ture;
     	}
     });
+
+
+    function myHandler(e) {
+    	e.preventDefault();
+    }
 });

@@ -12,23 +12,7 @@
 </head>
 
 <body>
-    <header class="bg-light-yellow p-3">
-        <div class="container">
-            <div class="row">
-                <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
-                <div class="search-box col-12 col-md-6 position-relative">
-                	<form action="search" method="get" class="form-inline mr-2" id="search-form">
-	                    <input type="text" name="search-name" autocomplete="off" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
-	                    <button id="btn search-btn" class="search-btn btn btn-outline-info my-2">検索</button>
-	                </form>
-	                <div class="result-box position-absolute fixed-bottom">
-	                	<ul class="result-list bg-light">
-	                	</ul>
-	                </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <c:import url="header.jsp" />
 
 	<main>
 		<div class="container bg-light-skyblue pt-4 pb-4">
@@ -37,7 +21,7 @@
 					<p class="mb-0">
 						写真<br>
 						<div class="preview-img mb-2">
-							<img src="<%= request.getContextPath() %>/images/<c:out value="${menu.image}" />" title="<c:out value="${menu.image}" />" width="400px">
+							<img src="<%= request.getContextPath() %>/images/uploads/<c:out value="${menu.image}" />" title="<c:out value="${menu.image}" />" width="400px">
 						</div>
 						<input type="file" name="image" id="menu-img" value="<c:out value="${menu.image}" />">
 					</p>
@@ -131,13 +115,7 @@
 		</div>
 	</main>
 
-	<footer class="bg-light-yellow pt-3 pb-3">
-		<div class="container">
-			<p class="text-center mb-0">
-				<a href="index">&copy;2020 All rights reserved.</a>
-			</p>
-		</div>
-	</footer>
+	<c:import url="footer.jsp"/>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/form.js"></script>
