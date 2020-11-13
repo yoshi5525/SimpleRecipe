@@ -2,8 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import controller.ValidationMenu.errorKeys;
 import dao.DaoFactory;
 import dao.FoodDao;
 import dao.MenuDao;
@@ -123,71 +123,39 @@ public class MenuNewServlet extends HttpServlet {
 
 
 		// バリデーション
-	    boolean isValidated = true;
+		ValidationMenu validationMenu = new ValidationMenu();
+		Map<String, String> errors = validationMenu.errorCheck(name, kana, tagId, strQuantities);
 
-	    if (name.isEmpty()) {
-	    	isValidated = false;
-	    	request.setAttribute("errorName", "料理名の入力は必須です！");
-	    } else if (name.length() >= 20) {
-	    	isValidated = false;
-	    	request.setAttribute("errorName", "料理名は20文字以下で入力してください！");
-	    }
+		if (errors.get((Object)errorKeys.ERROR_MSG) != null) {
+			request.setAttribute("image", image);
+			request.setAttribute("name", name);
+			request.setAttribute("kana", kana);
+			request.setAttribute("foodstuff", foodstuff);
+			request.setAttribute("recipe", recipe);
 
-	    Pattern kanaPattern = Pattern.compile("/^[ぁ-ん][ぁ-んー]+$/");
-	    Matcher kanaMatcher = kanaPattern.matcher(kana);
-	    if (kana.isEmpty()) {
-	    	isValidated = false;
-	    	request.setAttribute("errorKana", "ふりがなの入力は必須です！");
-	    } else if (!kanaMatcher.matches()) {
-	    	isValidated = false;
-	    	request.setAttribute("errorKana", "全角ひらがなで入力してください！");
-	    } else {
-	    	isValidated = false;
-	    	request.setAttribute("errorKana", "ふりがなは40文字以下で入力してください！");
-	    }
+			if (tagId == 0) {
+				request.setAttribute("tag_id", 1);
+			} else {
+				request.setAttribute("tag_id", tagId);
+			}
 
-	    if (tagId == 0) {
-	    	isValidated = false;
-	    	request.setAttribute("errorTagId", "料理区分の選択は必須です！");
-	    }
-
-	    for (String strQuantitie: strQuantities) {
-	    	if (!strQuantitie.equals("") && Integer.parseInt(strQuantitie) < 0) {
-	    		isValidated = false;
-	    		request.setAttribute("errorQuantity", "調味料の分量は0以上で入力してください！");
-	    	}
-	    }
-
-	    if (isValidated == false) {
-	    	request.setAttribute("image", image);
-		    request.setAttribute("name", name);
-		    request.setAttribute("kana", kana);
-		    request.setAttribute("foodstuff", foodstuff);
-		    request.setAttribute("recipe", recipe);
-
-		    if (tagId == 0) {
-		    	request.setAttribute("tag_id", 1);
-		    } else {
-		    	request.setAttribute("tag_id", tagId);
-		    }
-
-		    Integer[] foodIds = new Integer[menuFoodLength];
+			Integer[] foodIds = new Integer[menuFoodLength];
 			Integer[] quantities = new Integer[menuFoodLength];
 			for (int i = 0; i < menuFoodLength; i++) {
 				if (!strFoodIds[i].equals(null)) {
 					foodIds[i] = Integer.parseInt(strFoodIds[i]);
 				}
-				if (!strQuantities[i].equals(null)) {
+				if (!strQuantities[i].equals(null) && strQuantities[i].equals("")) {
 					quantities[i] = Integer.parseInt(strQuantities[i]);
 				}
 			}
-		    request.setAttribute("foodIds", foodIds);
-		    request.setAttribute("quantities", quantities);
+			request.setAttribute("foodIds", foodIds);
+			request.setAttribute("quantities", quantities);
 
-		    request.setAttribute("errorMsg", "入力に不備があります！！");
-	    	request.getRequestDispatcher("/WEB-INF/view/new.jsp").forward(request, response);
-	    	return;
-	    }
+			request.setAttribute("errors", errors);
+			request.getRequestDispatcher("/WEB-INF/view/new.jsp").forward(request, response);
+			return;
+		}
 
 
 		Menu menu = new Menu();

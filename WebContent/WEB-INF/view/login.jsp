@@ -12,28 +12,15 @@
 </head>
 
 <body>
-	<header class="bg-light-yellow p-3">
-        <div class="container">
-            <div class="row">
-                <h1 class="h2 mb-0 col-12 col-md-5"><a href="index">ずぼらレシピ</a></h1>
-                <div class="search-box col-12 col-md-6 position-relative">
-                	<form action="search" method="get" class="form-inline mr-2" id="search-form">
-	                    <input type="text" name="search-name" autocomplete="off" placeholder="料理名を入力" class="form-control mr-2 w-75" id="search-box">
-	                    <button id="btn search-btn" class="search-btn btn btn-outline-info my-2">検索</button>
-	                </form>
-	                <div class="result-box position-absolute fixed-bottom">
-	                	<ul class="result-list bg-light">
-	                	</ul>
-	                </div>
-                </div>
-            </div>
-        </div>
-    </header>
+	<c:import url="header.jsp" />
 
 	<main>
 		<div class="container bg-light-skyblue p-5">
 			<div class="form w-50 mx-auto">
 				<form action="" method="post">
+					<c:if test="${!empty error}">
+						<p class="text-center h5 text-danger font-weight-bold mb-4"><c:out value="${error}" /></p>
+					</c:if>
 					<p>
 						ユーザーID<br>
 						<input type="text" name="login_id" size="40">
@@ -46,9 +33,14 @@
 						<input type="submit" value="ログインする" name="login"><br>
 					</p>
 				</form>
-				<form action="logout" method="post"class="mt-3">
-					<input type="submit" value="ログアウトする" name="logout">
-				</form>
+				<c:if test="${loginStatus != null}">
+					<form action="logout" method="post"class="mt-3">
+						<input type="submit" value="ログアウトする" name="logout">
+					</form>
+					<p class="mt-3">
+						<a href="new"><button style="border-radius: 5px;">レシピの新規投稿</button></a>
+					</p>
+				</c:if>
 				<p class="mt-5">
 					<a href="index">トップページへ戻る</a>
 				</p>
@@ -56,14 +48,10 @@
 		</div>
 	</main>
 
-	<footer class="bg-light-yellow pt-3 pb-3">
-		<div class="container">
-			<p class="text-center mb-0">
-				<a href="index">&copy;2020 All rights reserved.</a>
-			</p>
-		</div>
-	</footer>
+	<c:import url="footer.jsp"/>
 
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/form.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
 </body>
 

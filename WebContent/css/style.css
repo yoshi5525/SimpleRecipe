@@ -54,3 +54,17 @@ li {
 	background: yellow;
 	height: 40px;
 }
+
+footer button {
+	background-color: #f1f5bc;
+	border: none;
+	cursor: normal;
+}
+
+footer button:focus {
+	outline:0;
+}
+
+.form-require {
+    vertical-align: top;
+}
