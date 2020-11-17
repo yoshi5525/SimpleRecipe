@@ -16,9 +16,11 @@
 
 	<main>
 		<c:import url="form.jsp">
+			<c:param name="url" value="${url}" />
 			<c:param name="foods" value="${foods}" />
 			<c:param name="tags" value="${tags}" />
 
+			<c:param name="menuFoodLength" value="${menuFoodLength}" />
 			<c:param name="image" value="${image}" />
 			<c:param name="name" value="${name}" />
 			<c:param name="kana" value="${kana}" />

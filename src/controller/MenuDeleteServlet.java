@@ -30,6 +30,8 @@ public class MenuDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = request.getRequestURI();
+
 		String strId = request.getParameter("id");
 		Integer id = 0;
 		if (strId != null) {
@@ -49,7 +51,7 @@ public class MenuDeleteServlet extends HttpServlet {
 			request.setAttribute("tags", tags);
 
 			MenuDao menuDao = DaoFactory.createMenuDao();
-			Menu menu = menuDao.findById(id);
+			Menu menu = menuDao.findById(id, url);
 			request.setAttribute("menu", menu);
 
 			MenuFoodDao menuFoodDao = DaoFactory.createMenuFoodDao();

@@ -39,7 +39,7 @@
 								<c:forEach var="menu" items="${menus}">
 									<c:choose>
 										<c:when test="${menu.tagId == values[i][j]}">
-											<li class="col-5 col-xl-3 bg-light mb-2 py-2 mr-4">
+											<li class="index-menu-list col-5 col-xl-3 bg-light mb-2 py-2 mr-4">
 												<a href="show?id=<c:out value="${menu.id}" />"><c:out value="${menu.name}" /></a>
 											</li>
 										</c:when>

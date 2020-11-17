@@ -28,13 +28,13 @@
 						<div class="recipe-quantity-box mb-5">
 							<form action="GET">
 								<p class="h4">調味料算出用の食材重量および調理器具重量</p>
-								<p class="font-weight-bold">
+								<p class="font-weight-bold h5 text-primary mb-4">
 									食材総重量<br>
 									※使用する食材の合計重量を入力してください<br>
 									<input type="number" value="100" min="0" max="100000" oninput="validity.valid||(value='');"
 										style="width: 100px" class="text-right ml-2" id="calc-food"> グラム
 								</p>
-								<p class="font-weight-bold">
+								<p class="font-weight-bold h5 text-primary">
 									鍋･ボウル重量<br>
 									※食材の重量計測時に使用した器具があればその重量を入力してください<br>
 									<input type="number" value="0" min="0" max="100000" oninput="validity.valid||(value='');"

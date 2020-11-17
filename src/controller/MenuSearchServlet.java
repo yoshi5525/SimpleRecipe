@@ -30,6 +30,11 @@ public class MenuSearchServlet extends HttpServlet {
 		response.setContentType("text/json; charset=UTF-8");
 
 		String searchName = request.getParameter("searchName");
+		if (searchName == null) {
+			response.sendRedirect("index");
+			return;
+		}
+
 		MenuDao dao = DaoFactory.createMenuDao();
 		Writer writer = response.getWriter();
 		ObjectMapper mapper = new ObjectMapper();
@@ -39,6 +44,7 @@ public class MenuSearchServlet extends HttpServlet {
 			if (searchName != null) {
 				menus = dao.findSearchName(searchName);
 				writer.write(mapper.writeValueAsString(menus));
+				request.setAttribute("menus", menus);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
