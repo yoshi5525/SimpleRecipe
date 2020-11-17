@@ -13,9 +13,8 @@ $(function() {
 
 			if (menus.length !== 0) {
 				$.each(menus, function(i, menu) {
-					insertHTML += buildHTML(menu);
+					insertHTML += buildSearchHTML(menu);
 				});
-
 				$(".result-list").append(insertHTML);
 				$(".result-box").addClass("active");
 			} else {
@@ -27,7 +26,7 @@ $(function() {
 		})
 	});
 
-	function buildHTML(menu) {
+	function buildSearchHTML(menu) {
 		var html = `<li class="search-list-item ml-2 py-2"><a href="show?id=${menu.id}">${menu.name}</a></li>`;
 		return html;
 	}

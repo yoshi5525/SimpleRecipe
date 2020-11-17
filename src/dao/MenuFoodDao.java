@@ -10,7 +10,7 @@ public interface MenuFoodDao {
 
 	List<MenuFood> findById(Integer id) throws Exception;
 
-	Integer findRegisteredId(Integer id) throws Exception;
+	Integer findByIdCount(Integer id) throws Exception;
 
 	void insert(MenuFood menuFood) throws Exception;
 

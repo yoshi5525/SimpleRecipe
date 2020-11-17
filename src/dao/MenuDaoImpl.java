@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -25,6 +27,7 @@ public class MenuDaoImpl implements MenuDao {
 	private Menu mapToIndexMenu(ResultSet rs) throws SQLException {
 		Menu menu = new Menu();
 		menu.setName(rs.getString("name"));
+		menu.setKana(rs.getString("kana"));
 		menu.setId((Integer) rs.getObject("id"));
 		menu.setTagId((Integer) rs.getObject("tag_id"));
 		return menu;
@@ -50,38 +53,36 @@ public class MenuDaoImpl implements MenuDao {
 		return menu;
 	}
 
-	private Menu mapToSearchMenu(ResultSet rs) throws SQLException {
-		Menu menu = new Menu();
-		menu.setName(rs.getString("name"));
-		menu.setId((Integer) rs.getObject("id"));
-		menu.setTagId((Integer) rs.getObject("tag_id"));
-		return menu;
-	}
-
 
 	@Override
 	public List<Menu> findAll() throws Exception {
 		List<Menu> menus = new ArrayList<>();
+		List<Menu> sortedMenus;
 
 		try (Connection con = ds.getConnection()) {
-			String sql = "SELECT id, name, tag_id FROM menus";
+			String sql = "SELECT id, name, kana, tag_id FROM menus";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-
 			while (rs.next()) {
 				menus.add(mapToIndexMenu(rs));
 			}
+
+			sortedMenus = menus.stream().sorted(new Comparator<Menu>(){
+			    @Override
+			    public int compare(Menu p1, Menu p2) {
+			        return p1.getKana().compareTo(p2.getKana());
+			    }
+			}).collect(Collectors.toList());
 		} catch (Exception e) {
 			throw e;
 		}
-		return menus;
+		return sortedMenus;
 	}
 
 
 	@Override
-	public Menu findById(Integer id) throws Exception {
+	public Menu findById(Integer id, String url) throws Exception {
 		Menu menu = null;
-
 		try (Connection con = ds.getConnection()) {
 			String sql = "SELECT"
 						+ " menus.id AS id_menu, menus.name, menus.kana, recipe, foodstuff, image, user_id, tag_id, tags.name AS tag_name,"
@@ -98,12 +99,11 @@ public class MenuDaoImpl implements MenuDao {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setObject(1, id);
 			ResultSet rs = stmt.executeQuery();
-
 			if (rs.next()) {
 				menu = mapToShowMenu(rs);
 			}
 
-			if (menu != null) {
+			if (menu != null && url.equals("/SimpleRecipe/show")) {
 				String strFoodstuff = menu.getFoodstuff();
 				String replacedFoodstuff = strFoodstuff.replaceAll("、", "\n･");
 				replacedFoodstuff = replacedFoodstuff.replaceFirst("", "･");
@@ -200,9 +200,10 @@ public class MenuDaoImpl implements MenuDao {
 	@Override
 	public List<Menu> findSearchName(String name) throws Exception {
 		List<Menu> menus = new ArrayList<>();
+		List<Menu> sortedMenus;
 
 		try (Connection con = ds.getConnection()) {
-			String sql = "SELECT id, name, tag_id FROM menus"
+			String sql = "SELECT id, name, tag_id, kana FROM menus"
 						+ " WHERE name LIKE ? OR kana LIKE ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -213,14 +214,20 @@ public class MenuDaoImpl implements MenuDao {
 			stmt.setString(1, searchName);
 			stmt.setString(2, searchName);
 			ResultSet rs = stmt.executeQuery();
-
 			while (rs.next()) {
-				menus.add(mapToSearchMenu(rs));
+				menus.add(mapToIndexMenu(rs));
 			}
+
+			sortedMenus = menus.stream().sorted(new Comparator<Menu>(){
+			    @Override
+			    public int compare(Menu p1, Menu p2) {
+			        return p1.getKana().compareTo(p2.getKana());
+			    }
+			}).collect(Collectors.toList());
 		} catch (Exception e) {
 			throw e;
 		}
-		return menus;
+		return sortedMenus;
 	}
 
 }

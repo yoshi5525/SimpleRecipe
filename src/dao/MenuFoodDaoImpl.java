@@ -73,7 +73,6 @@ public class MenuFoodDaoImpl implements MenuFoodDao {
 		    PreparedStatement stmt = con.prepareStatement(sql);
 		    stmt.setObject(1, id, Types.INTEGER);
 		    ResultSet rs = stmt.executeQuery();
-
 		    while (rs.next()) {
 		        menuFoods.add(mapToShowMenuFood(rs));
 		    }
@@ -85,22 +84,22 @@ public class MenuFoodDaoImpl implements MenuFoodDao {
 
 
 	@Override
-	public Integer findRegisteredId(Integer id) throws Exception {
-		Integer registeredId = 0;
+	public Integer findByIdCount(Integer id) throws Exception {
+		Integer count = 0;
 		try (Connection con = ds.getConnection()) {
-			String sql = "SELECT id FROM menu_foods WHERE id = ?";
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setObject(1, id, Types.INTEGER);
-
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				registeredId = rs.getInt(1);
-			}
-		} catch (Exception e) {
-			throw e;
-		}
-		return registeredId;
+		    String sql = "SELECT COUNT(*) FROM menu_foods WHERE menu_id = ?";
+		    PreparedStatement stmt = con.prepareStatement(sql);
+		    stmt.setObject(1, id, Types.INTEGER);
+		    ResultSet rs = stmt.executeQuery();
+		    if (rs.next()) {
+		    	count = rs.getInt(1);
+		    }
+	    } catch (Exception e) {
+	        throw e;
+	    }
+		return count;
 	}
+
 
 	@Override
 	public void insert(MenuFood menuFood) throws Exception {
@@ -116,6 +115,7 @@ public class MenuFoodDaoImpl implements MenuFoodDao {
 			throw e;
 		}
 	}
+
 
 	@Override
 	public void update(MenuFood menuFood) throws Exception {

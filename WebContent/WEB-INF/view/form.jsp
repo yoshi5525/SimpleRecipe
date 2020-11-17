@@ -17,9 +17,9 @@
 			<p class="mb-0">
 				写真<br>
 				<div class="preview-img mb-2">
-					<img src="<c:if test="${!empty image}"><c:out value="${image}" /></c:if>" width="400px">
+					<img src="<c:if test="${!empty image}"><%= request.getContextPath() %>/images/uploads/<c:out value="${image}" /></c:if>" width="400px">
 				</div>
-				<input type="file" name="image" id="menu-img">
+				<input type="file" name="image" id="menu-img" <c:if test="${!empty image}">value="<c:out value="${image}" />"</c:if>>
 			</p>
 			<p>
 				料理名<span class="form-require ml-2 text-light px-2 bg-danger rounded">必須</span><br>
@@ -51,19 +51,34 @@
 			<p>
 				<div class="d-inline-block w-25">調味料<span class="form-require ml-2 text-light px-2 bg-danger rounded">必須</span></div>
 				<div class="d-inline-block w-50">調味料分量<span class="form-require ml-2 text-light px-2 bg-danger rounded">必須</span></div>
-				<div class="menu-food mb-2">
-					<select name="food_id" class="select-foods w-25 mt-1">
-						<c:forEach var="food" items="${foods}">
-							<option value="<c:out value="${food.id}" />"><c:out value="${food.name}" /></option>
-						</c:forEach>
-					</select>
-					<input type="number" name="food_quantity" class="select-numbers text-right mt-1" value="0" size="20" min="0"
-						oninput="validity.valid||(value='');">
-					<input type="button" value="+" class="add">
-					<input type="button" value="－" class="del">
-				</div>
+				<c:forEach var="j" begin="0" end="${menuFoodLength - 1}">
+					<div class="menu-food mb-2">
+						<select name="food_id" class="select-foods w-25 mt-1">
+							<c:forEach var="food" items="${foods}">
+								<option value="<c:out value="${food.id}" />" <c:if test="${food.id == foodIds[j]}">selected</c:if>><c:out value="${food.name}" /></option>
+							</c:forEach>
+						</select>
+						<input type="number" name="food_quantity" class="select-numbers text-right mt-1"
+							value="<c:choose><c:when test="${!empty quantities[j]}"><c:out value="${quantities[j]}" /></c:when><c:otherwise>0</c:otherwise></c:choose>"
+							size="20" min="0" oninput="validity.valid||(value='');">
+						<input type="button" value="+" class="add">
+						<input type="button" value="－" class="del">
+					</div>
+				</c:forEach>
 				<c:if test="${!empty errors.ERROR_QUANTITY}"><p class="h5 text-danger font-weight-bold mb-4"><c:out value="${errors.ERROR_QUANTITY}" /></p></c:if>
 			</p>
+			<c:if test="${!empty menuFoodIds}">
+				<c:forEach var="menuFoodId" items="${menuFoodIds}">
+					<p>
+						<input type="hidden" name="menu_food_id" value="<c:out value="${menuFoodId}" />">
+					</p>
+				</c:forEach>
+			</c:if>
+			<c:if test="${!empty menu_id}">
+				<p>
+					<input type="hidden" name="menu_id" value="<c:out value="${menu_id}" />">
+				</p>
+			</c:if>
 			<p>
 				<input type="hidden" name="menu-food-length" value="1" id="menu-food-length">
 			</p>
@@ -76,7 +91,13 @@
 				<textarea name="recipe" cols="50" rows="8"><c:if test="${recipe != null}"><c:out value="${recipe}" /></c:if></textarea>
 			</p>
 			<p class="mb-0">
-				<input type="submit" value="登録する" id="register">
+				<c:if test="${empty url}">
+					<input type="submit" value="登録する" id="register">
+				</c:if>
+				<c:if test="${!empty url}">
+					<input type="submit" name="edit" value="更新する" id="register" class="mr-4">
+					<input type="submit" name="delete" value="削除する" id="delete">
+				</c:if>
 			</p>
 		</form>
 		<p class="mt-3">

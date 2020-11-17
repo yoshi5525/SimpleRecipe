@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import controller.ValidationMenu.errorKeys;
 import dao.DaoFactory;
@@ -39,6 +38,7 @@ public class MenuNewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("UTF-8");
+		String url = request.getRequestURI();
 
 		HttpSession session = request.getSession();
 		String loginStatus = (String) session.getAttribute("loginStatus");
@@ -46,6 +46,9 @@ public class MenuNewServlet extends HttpServlet {
 			response.sendRedirect("index");
 			return;
 		}
+
+		Integer menuFoodLength = 1;
+		request.setAttribute("menuFoodLength", menuFoodLength);
 
 		try {
 			FoodDao foodDao = DaoFactory.createFoodDao();
@@ -56,6 +59,7 @@ public class MenuNewServlet extends HttpServlet {
 			List<Tag> tags = tagDao.findAll();
 			request.setAttribute("tags", tags);
 
+			request.setAttribute("url", url);
 			request.getRequestDispatcher("/WEB-INF/view/new.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,6 +72,7 @@ public class MenuNewServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("UTF-8");
+		String url = request.getRequestURI();
 
 		try {
 			FoodDao foodDao = DaoFactory.createFoodDao();
@@ -83,14 +88,12 @@ public class MenuNewServlet extends HttpServlet {
 		}
 
 
-		Part part = request.getPart("image");
-		String fileName = part.getSubmittedFileName();
-//		String path = request.getServletContext().getRealPath("/uploads");
+//		Part part = request.getPart("image");
+//		String fileName = part.getSubmittedFileName();
+//		String path = request.getServletContext().getRealPath("/images/uploads");
 //		File filePath = new File(path);
 //		part.write(filePath + "/" + fileName);
 
-
-		// ログイン中のUserのIdをsession情報から取得
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		String userLoginId = user.getLoginId();
@@ -104,7 +107,8 @@ public class MenuNewServlet extends HttpServlet {
 		Integer loginUserId = loginUser.getId();
 
 
-		String image = fileName;
+//		String image = fileName;
+		String image = request.getParameter("image");
 		String name = request.getParameter("name");
 		String kana = request.getParameter("kana");
 		String foodstuff = request.getParameter("foodstuff");
@@ -117,7 +121,6 @@ public class MenuNewServlet extends HttpServlet {
 
 		String strMenuFoodLength = request.getParameter("menu-food-length");
 		Integer menuFoodLength = Integer.parseInt(strMenuFoodLength);
-
 		String[] strFoodIds = request.getParameterValues("food_id");
 		String[] strQuantities = request.getParameterValues("food_quantity");
 
@@ -126,7 +129,8 @@ public class MenuNewServlet extends HttpServlet {
 		ValidationMenu validationMenu = new ValidationMenu();
 		Map<String, String> errors = validationMenu.errorCheck(name, kana, tagId, strQuantities);
 
-		if (errors.get((Object)errorKeys.ERROR_MSG) != null) {
+		if (errors.get((Object)errorKeys.ERROR_MSG) != "" || errors.get((Object)errorKeys.ERROR_MSG) != null) {
+			request.setAttribute("menuFoodLength", menuFoodLength);
 			request.setAttribute("image", image);
 			request.setAttribute("name", name);
 			request.setAttribute("kana", kana);
@@ -145,14 +149,15 @@ public class MenuNewServlet extends HttpServlet {
 				if (!strFoodIds[i].equals(null)) {
 					foodIds[i] = Integer.parseInt(strFoodIds[i]);
 				}
-				if (!strQuantities[i].equals(null) && strQuantities[i].equals("")) {
+				if (!strQuantities[i].equals(null) && !strQuantities[i].equals("")) {
 					quantities[i] = Integer.parseInt(strQuantities[i]);
 				}
 			}
 			request.setAttribute("foodIds", foodIds);
 			request.setAttribute("quantities", quantities);
-
 			request.setAttribute("errors", errors);
+
+			request.setAttribute("url", url);
 			request.getRequestDispatcher("/WEB-INF/view/new.jsp").forward(request, response);
 			return;
 		}
@@ -178,10 +183,10 @@ public class MenuNewServlet extends HttpServlet {
 		Integer foodId = 0;
 		Integer quantity = 0;
 		for (int i = 0; i < menuFoodLength; i++) {
-			if (strFoodIds[i] != null) {
+			if (strFoodIds[i] != null && strFoodIds[i] != "") {
 				foodId = Integer.parseInt(strFoodIds[i]);
 			}
-			if (strQuantities[i] != null) {
+			if (strQuantities[i] != null && strFoodIds[i] != "") {
 				quantity = Integer.parseInt(strQuantities[i]);
 			}
 			MenuFood menuFood = new MenuFood();
