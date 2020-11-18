@@ -42,4 +42,5 @@ Simple Recipe
 気に入った料理をお気に入り登録する機能。
 
 ## 設計図
+![レシピの閲覧](https://user-images.githubusercontent.com/63286009/99470158-9742e700-2987-11eb-8dff-ede3a7623019.png)
 [計算とフラッシュゲームで脳トレアプリ設計図](https://gyazo.com/658ffe24efab97ebd94fb196efb6e8fd)
