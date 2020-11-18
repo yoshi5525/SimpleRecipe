@@ -3,7 +3,7 @@ package domain;
 public class MenuFood {
 
 	private Integer id;
-	private Integer quantity;
+	private Double quantity;
 	private Integer menuId;
 	private Integer foodId;
 	private String foodName;
@@ -12,7 +12,7 @@ public class MenuFood {
 	public MenuFood() {
 
 	}
-	public MenuFood(Integer id, Integer quantity, Integer menuId, Integer foodId, String foodName, Double saltLevel) {
+	public MenuFood(Integer id, Double quantity, Integer menuId, Integer foodId, String foodName, Double saltLevel) {
 		this.id = id;
 		this.quantity = quantity;
 		this.menuId = menuId;
@@ -27,10 +27,10 @@ public class MenuFood {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getQuantity() {
+	public Double getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
 	public Integer getMenuId() {

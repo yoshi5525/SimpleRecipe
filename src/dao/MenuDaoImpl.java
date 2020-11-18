@@ -46,7 +46,7 @@ public class MenuDaoImpl implements MenuDao {
 		menu.setTagId((Integer)rs.getObject("tag_id"));
 		menu.setTagName(rs.getString("tag_name"));
 		menu.setIdMenuFood((Integer)rs.getObject("id_menu_food"));
-		menu.setFoodQuantity((Integer)rs.getObject("food_quantity"));
+		menu.setFoodQuantity(rs.getDouble("food_quantity"));
 		menu.setFoodId((Integer)rs.getObject("food_id"));
 		menu.setIdFood((Integer)rs.getObject("id_food"));
 		menu.setFoodName(rs.getString("food_name"));
@@ -66,7 +66,6 @@ public class MenuDaoImpl implements MenuDao {
 			while (rs.next()) {
 				menus.add(mapToIndexMenu(rs));
 			}
-
 			sortedMenus = menus.stream().sorted(new Comparator<Menu>(){
 			    @Override
 			    public int compare(Menu p1, Menu p2) {
@@ -97,7 +96,7 @@ public class MenuDaoImpl implements MenuDao {
 						+ " ON menu_foods.food_id = foods.id"
 						+ " WHERE menus.id = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setObject(1, id);
+			stmt.setObject(1, id, Types.INTEGER);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				menu = mapToShowMenu(rs);

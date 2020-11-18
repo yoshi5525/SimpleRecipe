@@ -38,11 +38,20 @@ $(function() {
 	});
 
 	$(function() {
-		var foodStuffLine = $("#foodstuff-text").val().match(/･/g).length * 25;
-		var recipeLine = $("#recipe-text").val().match(/:/g).length * 25;
+		var foodStuffLine = $("#foodstuff-text").val().match(/･/g).length * 28;
+		var recipeLine = $("#recipe-text").val().match(/:/g).length * 54;
 		$("#foodstuff-text").height(foodStuffLine);
 		$("#recipe-text").height(recipeLine);
 	});
+
+	$(function() {
+		if ($(".food-pre-weight").length) {
+			var word = "(⇒上記の下茹で食材の重量を引いた量)";
+			$(".food-weight").append(word);
+		}
+	});
+
+
 
 //	var numberFormat = [];
 //	numberFormat.push($("[data-type='number']"));

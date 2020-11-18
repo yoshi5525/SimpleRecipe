@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import controller.ValidationMenu.errorKeys;
 import dao.DaoFactory;
@@ -69,7 +71,7 @@ public class MenuEditServlet extends HttpServlet {
 			Integer count = menuFoodDao.findByIdCount(id);
 
 			Integer[] foodIds = new Integer[count];
-			Integer[] quantities = new Integer[count];
+			Double[] quantities = new Double[count];
 			Integer[] menuFoodIds = new Integer[count];
 			int i = 0;
 			for (MenuFood menuFood: menuFoods) {
@@ -108,15 +110,15 @@ public class MenuEditServlet extends HttpServlet {
 			request.setAttribute("tags", tags);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("index");
+			response.sendRedirect("show");
 		}
 
 
-//		Part part = request.getPart("image");
-//		String fileName = part.getSubmittedFileName();
-//		String path = request.getServletContext().getRealPath("/images/uploads");
-//		File filePath = new File(path);
-//		part.write(filePath + "/" + fileName);
+		Part part = request.getPart("image");
+		String fileName = part.getSubmittedFileName();
+		String path = request.getServletContext().getRealPath("/images/uploads");
+		File filePath = new File(path);
+		part.write(filePath + "/" + fileName);
 
 		String strMenuId = request.getParameter("menu_id");
 		Integer menuId = 0;
@@ -140,8 +142,7 @@ public class MenuEditServlet extends HttpServlet {
 		}
 
 
-//		String image = fileName;
-		String image = request.getParameter("image");
+		String image = fileName;
 		String name = request.getParameter("name");
 		String kana = request.getParameter("kana");
 		String foodstuff = request.getParameter("foodstuff");
@@ -159,13 +160,13 @@ public class MenuEditServlet extends HttpServlet {
 		String[] strMenuFoodIds = request.getParameterValues("menu_food_id");
 
 		Integer[] foodIds = new Integer[menuFoodLength];
-		Integer[] quantities = new Integer[menuFoodLength];
+		Double[] quantities = new Double[menuFoodLength];
 		for (int i = 0; i < menuFoodLength; i++) {
 			if (!strFoodIds[i].equals(null) && !strFoodIds[i].equals("")) {
 				foodIds[i] = Integer.parseInt(strFoodIds[i]);
 			}
 			if (!strQuantities[i].equals(null) && !strQuantities[i].equals("")) {
-				quantities[i] = Integer.parseInt(strQuantities[i]);
+				quantities[i] = Double.parseDouble(strQuantities[i]);
 			}
 		}
 
@@ -181,7 +182,7 @@ public class MenuEditServlet extends HttpServlet {
 		ValidationMenu validationMenu = new ValidationMenu();
 		Map<String, String> errors = validationMenu.errorCheck(name, kana, tagId, strQuantities);
 
-		if (errors.get((Object)errorKeys.ERROR_MSG) != "" || errors.get((Object)errorKeys.ERROR_MSG) != null) {
+		if (errors.get((Object)errorKeys.ERROR_MSG) != null) {
 			request.setAttribute("menuFoodLength", menuFoodLength);
 			request.setAttribute("image", image);
 			request.setAttribute("name", name);

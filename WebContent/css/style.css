@@ -1,5 +1,10 @@
 * {
   line-height: 1.4em;
+  letter-spacing: 0.1em;
+}
+
+a, input {
+  letter-spacing: 0;
 }
 
 ul {
