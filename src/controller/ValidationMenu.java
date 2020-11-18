@@ -52,7 +52,7 @@ public class ValidationMenu {
 	    }
 
 	    for (String strQuantitie: strQuantities) {
-	    	if (!strQuantitie.equals("") && Integer.parseInt(strQuantitie) < 0) {
+	    	if (!strQuantitie.equals("") && Double.parseDouble(strQuantitie) < 0) {
 	    		isValidated = false;
 	    		errors.put(errorKeys.ERROR_QUANTITY.toString(), "調味料の分量は0以上で入力してください！");
 	    	}

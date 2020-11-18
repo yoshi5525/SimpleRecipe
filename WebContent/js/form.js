@@ -39,7 +39,7 @@ $(function() {
 
 	$(".add").click(function() {
         const addForm = $(this).parent().clone(true).insertAfter($(this).parent());
-        $(this).parent().next().find(".select-numbers").val("0");
+        $(this).parent().next().find(".select-numbers").val("0.0");
         $(this).parent().next().find(".select-foods").val("1");
     });
     $(".del").click(function() {

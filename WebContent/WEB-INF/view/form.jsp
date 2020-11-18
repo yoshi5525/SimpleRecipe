@@ -59,8 +59,8 @@
 							</c:forEach>
 						</select>
 						<input type="number" name="food_quantity" class="select-numbers text-right mt-1"
-							value="<c:choose><c:when test="${!empty quantities[j]}"><c:out value="${quantities[j]}" /></c:when><c:otherwise>0</c:otherwise></c:choose>"
-							size="20" min="0" oninput="validity.valid||(value='');">
+							value="<c:choose><c:when test="${!empty quantities[j]}"><c:out value="${quantities[j]}" /></c:when><c:otherwise>0.0</c:otherwise></c:choose>"
+							size="20" min="0.0" step="0.1" oninput="validity.valid||(value='');">
 						<input type="button" value="+" class="add">
 						<input type="button" value="－" class="del">
 					</div>
@@ -84,7 +84,7 @@
 			</p>
 			<p>
 				食材<br>
-				<textarea name="foodstuff" cols="50" rows="5"><c:if test="${foodstuff != null}"><c:out value="${foodstuff}" /></c:if></textarea>
+				<textarea name="foodstuff" cols="50" rows="8"><c:if test="${foodstuff != null}"><c:out value="${foodstuff}" /></c:if></textarea>
 			</p>
 			<p>
 				レシピ<br>

@@ -12,7 +12,7 @@ public class Menu {
 	private Integer tagId;
 	private String tagName;
 	private Integer idMenuFood;
-	private Integer foodQuantity;
+	private Double foodQuantity;
 	private Integer foodId;
 	private Integer idFood;
 	private String foodName;
@@ -22,7 +22,7 @@ public class Menu {
 
 	}
 	public Menu(Integer id, String name, String kana, String recipe, String foodstuff, String image, Integer userId, Integer tagId,
-			String tagName, Integer idMenuFood, Integer foodQuantity, Integer foodId, Integer idFood, String foodName) {
+			String tagName, Integer idMenuFood, Double foodQuantity, Integer foodId, Integer idFood, String foodName) {
 		this.id = id;
 		this.name = name;
 		this.kana = kana;
@@ -99,10 +99,10 @@ public class Menu {
 	public void setIdMenuFood(Integer idMenuFood) {
 		this.idMenuFood = idMenuFood;
 	}
-	public Integer getFoodQuantity() {
+	public Double getFoodQuantity() {
 		return foodQuantity;
 	}
-	public void setFoodQuantity(Integer foodQuantity) {
+	public void setFoodQuantity(Double foodQuantity) {
 		this.foodQuantity = foodQuantity;
 	}
 	public Integer getFoodId() {

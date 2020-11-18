@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import controller.ValidationMenu.errorKeys;
 import dao.DaoFactory;
@@ -59,7 +61,6 @@ public class MenuNewServlet extends HttpServlet {
 			List<Tag> tags = tagDao.findAll();
 			request.setAttribute("tags", tags);
 
-			request.setAttribute("url", url);
 			request.getRequestDispatcher("/WEB-INF/view/new.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,11 +89,11 @@ public class MenuNewServlet extends HttpServlet {
 		}
 
 
-//		Part part = request.getPart("image");
-//		String fileName = part.getSubmittedFileName();
-//		String path = request.getServletContext().getRealPath("/images/uploads");
-//		File filePath = new File(path);
-//		part.write(filePath + "/" + fileName);
+		Part part = request.getPart("image");
+		String fileName = part.getSubmittedFileName();
+		String path = request.getServletContext().getRealPath("/images/uploads");
+		File filePath = new File(path);
+		part.write(filePath + "/" + fileName);
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
@@ -107,8 +108,7 @@ public class MenuNewServlet extends HttpServlet {
 		Integer loginUserId = loginUser.getId();
 
 
-//		String image = fileName;
-		String image = request.getParameter("image");
+		String image = fileName;
 		String name = request.getParameter("name");
 		String kana = request.getParameter("kana");
 		String foodstuff = request.getParameter("foodstuff");
@@ -129,7 +129,7 @@ public class MenuNewServlet extends HttpServlet {
 		ValidationMenu validationMenu = new ValidationMenu();
 		Map<String, String> errors = validationMenu.errorCheck(name, kana, tagId, strQuantities);
 
-		if (errors.get((Object)errorKeys.ERROR_MSG) != "" || errors.get((Object)errorKeys.ERROR_MSG) != null) {
+		if (errors.get((Object)errorKeys.ERROR_MSG) != null) {
 			request.setAttribute("menuFoodLength", menuFoodLength);
 			request.setAttribute("image", image);
 			request.setAttribute("name", name);
@@ -144,20 +144,19 @@ public class MenuNewServlet extends HttpServlet {
 			}
 
 			Integer[] foodIds = new Integer[menuFoodLength];
-			Integer[] quantities = new Integer[menuFoodLength];
+			Double[] quantities = new Double[menuFoodLength];
 			for (int i = 0; i < menuFoodLength; i++) {
 				if (!strFoodIds[i].equals(null)) {
 					foodIds[i] = Integer.parseInt(strFoodIds[i]);
 				}
 				if (!strQuantities[i].equals(null) && !strQuantities[i].equals("")) {
-					quantities[i] = Integer.parseInt(strQuantities[i]);
+					quantities[i] = Double.parseDouble(strQuantities[i]);
 				}
 			}
 			request.setAttribute("foodIds", foodIds);
 			request.setAttribute("quantities", quantities);
 			request.setAttribute("errors", errors);
 
-			request.setAttribute("url", url);
 			request.getRequestDispatcher("/WEB-INF/view/new.jsp").forward(request, response);
 			return;
 		}
@@ -181,13 +180,13 @@ public class MenuNewServlet extends HttpServlet {
 		}
 
 		Integer foodId = 0;
-		Integer quantity = 0;
+		Double quantity = 0.0;
 		for (int i = 0; i < menuFoodLength; i++) {
 			if (strFoodIds[i] != null && strFoodIds[i] != "") {
 				foodId = Integer.parseInt(strFoodIds[i]);
 			}
 			if (strQuantities[i] != null && strFoodIds[i] != "") {
-				quantity = Integer.parseInt(strQuantities[i]);
+				quantity = Double.parseDouble(strQuantities[i]);
 			}
 			MenuFood menuFood = new MenuFood();
 			menuFood.setQuantity(quantity);
