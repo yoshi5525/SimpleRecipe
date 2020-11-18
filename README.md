@@ -43,4 +43,7 @@ Simple Recipe
 
 ## 設計図
 ![レシピの閲覧](https://user-images.githubusercontent.com/63286009/99470158-9742e700-2987-11eb-8dff-ede3a7623019.png)
-[計算とフラッシュゲームで脳トレアプリ設計図](https://gyazo.com/658ffe24efab97ebd94fb196efb6e8fd)
+![データベース設計](https://user-images.githubusercontent.com/63286009/99470764-a1b1b080-2988-11eb-9c72-9c351cc24a16.png)
+![アプリの機能](https://user-images.githubusercontent.com/63286009/99470765-a24a4700-2988-11eb-9bdc-1089ebdabb02.png)
+![ビュー1](https://user-images.githubusercontent.com/63286009/99470770-a37b7400-2988-11eb-92a7-6aec7b96f735.png)
+![ビュー2](https://user-images.githubusercontent.com/63286009/99470771-a4140a80-2988-11eb-818a-b1446d4a4bcb.png)
