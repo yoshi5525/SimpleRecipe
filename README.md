@@ -43,4 +43,4 @@ Simple Recipe
 
 ## 設計図
 <img src="https://user-images.githubusercontent.com/63286009/99470770-a37b7400-2988-11eb-92a7-6aec7b96f735.png" width="420px"> <img src="https://user-images.githubusercontent.com/63286009/99470771-a4140a80-2988-11eb-818a-b1446d4a4bcb.png" width="420px"> 
-<img src="https://user-images.githubusercontent.com/63286009/99470764-a1b1b080-2988-11eb-9c72-9c351cc24a16.png"> <img src="https://user-images.githubusercontent.com/63286009/99470765-a24a4700-2988-11eb-9bdc-1089ebdabb02.png">
+<img src="https://user-images.githubusercontent.com/63286009/99471888-dde61080-298a-11eb-8244-53c029f4e4d3.png">
