@@ -25,7 +25,7 @@ Simple Recipe
 料理をある程度したことがある方、主婦の方向けに作成しました。
 
 ## デモ
-<img src="https://user-images.githubusercontent.com/63286009/99470158-9742e700-2987-11eb-8dff-ede3a7623019.png" width="420px"> <img src="https://user-images.githubusercontent.com/63286009/99475538-19380d80-2992-11eb-93bb-f565b7d8069a.png" width="220px">
+![simple-recipe](https://user-images.githubusercontent.com/63286009/99748902-c771bd80-2b20-11eb-923b-6b3ef05629ba.gif)
 
 ## 使用技術
 * HTML
