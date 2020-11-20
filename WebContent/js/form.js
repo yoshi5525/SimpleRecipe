@@ -12,6 +12,14 @@ $(function() {
 		}
 	})())
 
+	$("#logout-btn").click(function() {
+		if (!confirm("本当に削除しますか？")) {
+    		return false;
+    	} else {
+    		return ture;
+    	}
+	})
+
 
 	$("#menu-img").change(function(e) {
         const file = e.target.files[0];

@@ -117,7 +117,7 @@ public class MenuDaoImpl implements MenuDao {
 				for (int i = 1; i <= line + 1; i++) {
 					if (i < line + 1) {
 						changeText = arrayRecipe[i - 1].replaceFirst("", i + ":");
-						changeText += arrayRecipe[i - 1].replaceFirst("$", "\n");
+						changeText += arrayRecipe[i - 1].replaceFirst("$", "\n\n");
 						replacedRecipe += changeText;
 					} else {
 						changeText = arrayRecipe[i - 1].replaceFirst("", i + ":");

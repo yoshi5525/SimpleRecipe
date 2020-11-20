@@ -15,15 +15,10 @@ public class ValidationMenu {
 		ERROR_MSG
 	}
 
-	private boolean isValidated = true;
 
 	public Map<String, String> errorCheck(String name, String kana, Integer tagId, String[] strQuantities) {
+		boolean isValidated = true;
 		Map<String, String> errors = new HashMap<>();
-		errors.put(errorKeys.ERROR_NAME.toString(), "");
-		errors.put(errorKeys.ERROR_KANA.toString(), "");
-		errors.put(errorKeys.ERROR_TAG_ID.toString(), "");
-		errors.put(errorKeys.ERROR_QUANTITY.toString(), "");
-		errors.put(errorKeys.ERROR_MSG.toString(), "");
 
 	    if (name.isEmpty()) {
 	    	isValidated = false;
@@ -31,6 +26,8 @@ public class ValidationMenu {
 	    } else if (name.length() >= 20) {
 	    	isValidated = false;
 	    	errors.put(errorKeys.ERROR_NAME.toString(), "料理名は20文字以下で入力してください！");
+	    } else {
+	    	errors.put(errorKeys.ERROR_NAME.toString(), "");
 	    }
 
 	    Pattern kanaPattern = Pattern.compile("[ぁ-ゖ][ぁ-ゖー 　]+");
@@ -44,24 +41,31 @@ public class ValidationMenu {
 	    } else if (kana.length() >= 40) {
 	    	isValidated = false;
 	    	errors.put(errorKeys.ERROR_KANA.toString(), "ふりがなは40文字以下で入力してください！");
+	    } else {
+	    	errors.put(errorKeys.ERROR_KANA.toString(), "");
 	    }
 
 	    if (tagId == 0) {
 	    	isValidated = false;
 	    	errors.put(errorKeys.ERROR_TAG_ID.toString(), "料理区分の選択は必須です！");
+	    } else {
+	    	errors.put(errorKeys.ERROR_TAG_ID.toString(), "");
 	    }
 
 	    for (String strQuantitie: strQuantities) {
-	    	if (!strQuantitie.equals("") && Double.parseDouble(strQuantitie) < 0) {
+	    	errors.put(errorKeys.ERROR_QUANTITY.toString(), "");
+	    	if (!strQuantitie.equals("") && Double.parseDouble(strQuantitie) <= 0) {
 	    		isValidated = false;
 	    		errors.put(errorKeys.ERROR_QUANTITY.toString(), "調味料の分量は0以上で入力してください！");
+	    		break;
 	    	}
 	    }
 
 	    if (isValidated == false) {
 	    	errors.put(errorKeys.ERROR_MSG.toString(), "入力に不備があります！！");
+	    } else {
+	    	errors.put(errorKeys.ERROR_MSG.toString(), "");
 	    }
-
 		return errors;
 	}
 
