@@ -39,7 +39,7 @@ $(function() {
 
 	$(function() {
 		var foodStuffLine = $("#foodstuff-text").val().match(/･/g).length * 28;
-		var recipeLine = $("#recipe-text").val().match(/:/g).length * 54;
+		var recipeLine = $("#recipe-text").val().match(/:/g).length * 70;
 		$("#foodstuff-text").height(foodStuffLine);
 		$("#recipe-text").height(recipeLine);
 	});

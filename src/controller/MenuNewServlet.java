@@ -40,12 +40,10 @@ public class MenuNewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("UTF-8");
-		String url = request.getRequestURI();
 
 		HttpSession session = request.getSession();
-		String loginStatus = (String) session.getAttribute("loginStatus");
-		if (loginStatus == null) {
-			response.sendRedirect("index");
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect("login");
 			return;
 		}
 
@@ -73,7 +71,6 @@ public class MenuNewServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("UTF-8");
-		String url = request.getRequestURI();
 
 		try {
 			FoodDao foodDao = DaoFactory.createFoodDao();
@@ -88,12 +85,14 @@ public class MenuNewServlet extends HttpServlet {
 			response.sendRedirect("index");
 		}
 
-
 		Part part = request.getPart("image");
-		String fileName = part.getSubmittedFileName();
-		String path = request.getServletContext().getRealPath("/images/uploads");
-		File filePath = new File(path);
-		part.write(filePath + "/" + fileName);
+		String fileName = "";
+		if (part != null && part.getSize() > 0) {
+			fileName = part.getSubmittedFileName();
+			String path = request.getServletContext().getRealPath("/images/uploads");
+			File filePath = new File(path);
+			part.write(filePath + "/" + fileName);
+		}
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
@@ -129,7 +128,7 @@ public class MenuNewServlet extends HttpServlet {
 		ValidationMenu validationMenu = new ValidationMenu();
 		Map<String, String> errors = validationMenu.errorCheck(name, kana, tagId, strQuantities);
 
-		if (errors.get((Object)errorKeys.ERROR_MSG) != null) {
+		if (errors.get(errorKeys.ERROR_MSG.toString()).equals("入力に不備があります！！")) {
 			request.setAttribute("menuFoodLength", menuFoodLength);
 			request.setAttribute("image", image);
 			request.setAttribute("name", name);

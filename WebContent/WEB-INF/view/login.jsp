@@ -35,7 +35,7 @@
 				</form>
 				<c:if test="${loginStatus != null}">
 					<form action="logout" method="post"class="mt-3">
-						<input type="submit" value="ログアウトする" name="logout">
+						<input type="submit" value="ログアウトする" name="logout" id="logout-btn">
 					</form>
 					<p class="mt-3">
 						<a href="new"><button style="border-radius: 5px;">レシピの新規投稿</button></a>
