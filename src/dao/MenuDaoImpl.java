@@ -8,6 +8,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
@@ -72,6 +74,63 @@ public class MenuDaoImpl implements MenuDao {
 			        return p1.getKana().compareTo(p2.getKana());
 			    }
 			}).collect(Collectors.toList());
+		} catch (Exception e) {
+			throw e;
+		}
+		return sortedMenus;
+	}
+
+
+	@Override
+	public List<Menu> findSearchAll(String name) throws Exception {
+		List<Menu> menus = new ArrayList<>();
+		List<Menu> sortedMenus;
+
+		Pattern kanaPattern = Pattern.compile("[ぁ-ゖ][ぁ-ゖー 　]*");
+	    Matcher kanaMatcher = kanaPattern.matcher(name);
+
+		try (Connection con = ds.getConnection()) {
+			if (kanaMatcher.matches()) {
+				String sql = "SELECT id, name, kana, tag_id FROM menus WHERE kana LIKE ?";
+				PreparedStatement stmt = con.prepareStatement(sql);
+
+				String searchName = "";
+				if (!name.equals("")) {
+					searchName = name + "%";
+				}
+				stmt.setString(1, searchName);
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+					menus.add(mapToIndexMenu(rs));
+				}
+				sortedMenus = menus.stream().sorted(new Comparator<Menu>(){
+				    @Override
+				    public int compare(Menu p1, Menu p2) {
+				        return p1.getKana().compareTo(p2.getKana());
+				    }
+				}).collect(Collectors.toList());
+			} else {
+				String sql = "SELECT id, name, kana, tag_id FROM menus WHERE name LIKE ?";
+				PreparedStatement stmt = con.prepareStatement(sql);
+
+				String searchName = "";
+				if (!name.equals("")) {
+					searchName = name + "%";
+				}
+				stmt.setString(1, searchName);
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+					menus.add(mapToIndexMenu(rs));
+				}
+				sortedMenus = menus.stream().sorted(new Comparator<Menu>(){
+					@Override
+					public int compare(Menu p1, Menu p2) {
+						return p1.getKana().compareTo(p2.getKana());
+					}
+				}).collect(Collectors.toList());
+			}
 		} catch (Exception e) {
 			throw e;
 		}

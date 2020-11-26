@@ -8,6 +8,8 @@ public interface MenuDao {
 
 	List<Menu> findAll() throws Exception;
 
+	List<Menu> findSearchAll(String name) throws Exception;
+
 	Menu findById(Integer id, String url) throws Exception;
 
 	Integer insert(Menu menu) throws Exception;

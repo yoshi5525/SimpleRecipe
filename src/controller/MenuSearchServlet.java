@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,8 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DaoFactory;
 import dao.MenuDao;
@@ -27,28 +24,18 @@ public class MenuSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/json; charset=UTF-8");
-
-		String searchName = request.getParameter("searchName");
-		if (searchName == null) {
-			response.sendRedirect("index");
-			return;
-		}
+		request.getRequestDispatcher("UTF-8");
+		String searchName = request.getParameter("search-name");
 
 		MenuDao dao = DaoFactory.createMenuDao();
-		Writer writer = response.getWriter();
-		ObjectMapper mapper = new ObjectMapper();
-
-		List<Menu> menus = null;
 		try {
-			if (searchName != null) {
-				menus = dao.findSearchName(searchName);
-				writer.write(mapper.writeValueAsString(menus));
-				request.setAttribute("menus", menus);
-			}
+			List<Menu> menus = dao.findSearchAll(searchName);
+			request.setAttribute("menus", menus);
+			request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			response.sendRedirect("index");
 		}
 	}
+
 
 }
