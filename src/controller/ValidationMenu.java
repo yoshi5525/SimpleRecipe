@@ -30,7 +30,7 @@ public class ValidationMenu {
 	    	errors.put(errorKeys.ERROR_NAME.toString(), "");
 	    }
 
-	    Pattern kanaPattern = Pattern.compile("[ぁ-ゖ][ぁ-ゖー 　]+");
+	    Pattern kanaPattern = Pattern.compile("[ぁ-ゖ][ぁ-ゖー 　]*");
 	    Matcher kanaMatcher = kanaPattern.matcher(kana);
 	    if (kana.isEmpty()) {
 	    	isValidated = false;

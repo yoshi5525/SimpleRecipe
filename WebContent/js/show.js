@@ -5,6 +5,12 @@ $(function() {
 		foods.push($(".registered-food-quantity").eq(i).val());
 	}
 
+	var foodStuffLine = $("#foodstuff-text").val().match(/･/g).length * 30;
+	var recipeLine = $("#recipe-text").val().match(/:/g).length * 80;
+	$("#foodstuff-text").height(foodStuffLine);
+	$("#recipe-text").height(recipeLine);
+
+
 	$("#calc-food").on("input", function() {
 		const calcFood = ($(this).val()) / 100;
 		const calcItem = ($("#calc-items").val()) / 100;
@@ -12,9 +18,11 @@ $(function() {
 
 		if (calcValue >= 0) {
 			for (var i = 0; i < foodLength; i++) {
-				const value = (foods[i] * calcValue).toFixed(1);
-				$(".registered-food-quantity").eq(i).val(value);
-				$("#calc-message").text("");
+				if (!($('.food-text').eq(i).text() === "ゆで水") && !($('.food-text').eq(i).text() === "ゆで塩")) {
+					const value = (foods[i] * calcValue).toFixed(1);
+					$(".registered-food-quantity").eq(i).val(value);
+					$("#calc-message").text("");
+				}
 			}
 		} else {
 			$("#calc-message").text("食材重量のほうが大きくなるように入力してください!!");
@@ -28,41 +36,58 @@ $(function() {
 
 		if (calcValue >= 0) {
 			for (var i = 0; i < foodLength; i++) {
-				const value = (foods[i] * calcValue).toFixed(1);
-				$(".registered-food-quantity").eq(i).val(value);
-				$("#calc-message").text("");
+				if (!($('.food-text').eq(i).text() === "ゆで水") && !($('.food-text').eq(i).text() === "ゆで塩")) {
+					const value = (foods[i] * calcValue).toFixed(1);
+					$(".registered-food-quantity").eq(i).val(value);
+					$("#calc-message").text("");
+				}
 			}
 		} else {
 			$("#calc-message").text("食材重量のほうが大きくなるように入力してください!");
 		}
 	});
 
-	$(function() {
-		var foodStuffLine = $("#foodstuff-text").val().match(/･/g).length * 28;
-		var recipeLine = $("#recipe-text").val().match(/:/g).length * 70;
-		$("#foodstuff-text").height(foodStuffLine);
-		$("#recipe-text").height(recipeLine);
-	});
 
-	$(function() {
-		if ($(".food-pre-weight").length) {
-			var word = "(⇒上記の下茹で食材の重量を引いた量)";
-			$(".food-weight").append(word);
-		}
-	});
+	if ($(".food-pre-weight").length) {
+		var wordFood = " ⇒ 上記の下茹で食材の重量を引いた量";
+		var wordItem = " ⇒ 上記の下茹で鍋･ボウルの重量を引いた量";
+		$(".food-weight").append(wordFood);
+		$(".food-items-weight").append(wordItem);
 
+		$("#calc-pre-food").on("input", function() {
+			const calcPreFood = ($(this).val()) / 10;
+			const calcPreItem = ($("#calc-pre-items").val()) / 10;
+			const calcPreValue = calcPreFood - calcPreItem;
 
+			if (calcPreValue >= 0) {
+				for (var i = 0; i < foodLength; i++) {
+					if (($('.food-text').eq(i).text() === "ゆで水") || ($('.food-text').eq(i).text() === "ゆで塩")) {
+						const value = (foods[i] * calcPreValue).toFixed(1);
+						$(".registered-food-quantity").eq(i).val(value);
+						$("#calc-pre-message").text("");
+					}
+				}
+			} else {
+				$("#calc-pre-message").text("下茹で食材重量のほうが大きくなるように入力してください！！");
+			}
+		});
 
-//	var numberFormat = [];
-//	numberFormat.push($("[data-type='number']"));
-//	for (var i = 0; i < numberFormat.length; i++) {
-//		numberFormat[i].on("input", function(e) {
-//			var target = e.target;
-//			var data = target.value[target.value.length-1];
-//			if (!data.match(/[0-9]/)) {
-//				target.value = target.value.slice(0, target.value.length-1);
-//			}
-//			target.value = target.value.replace(/,/g, '').replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-//		});
-//	};
+		$("#calc-pre-items").on("input", function() {
+			const calcPreFood = ($("#calc-pre-food").val()) / 10;
+			const calcPreItem = ($(this).val()) / 10;
+			const calcPreValue = calcPreFood - calcPreItem;
+
+			if (calcPreValue >= 0) {
+				for (var i = 0; i < foodLength; i++) {
+					if (($('.food-text').eq(i).text() === "ゆで水") || ($('.food-text').eq(i).text() === "ゆで塩")) {
+						const value = (foods[i] * calcPreValue).toFixed(1);
+						$(".registered-food-quantity").eq(i).val(value);
+						$("#calc-pre-message").text("");
+					}
+				}
+			} else {
+				$("#calc-pre-message").text("下茹で食材重量のほうが大きくなるように入力してください！！");
+			}
+		});
+	};
 });
