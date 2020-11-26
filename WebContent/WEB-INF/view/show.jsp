@@ -97,6 +97,9 @@
 				</div>
 			</div>
 		</section>
+		<div id="page_top">
+			<a href="#header"><i class="fas fa-arrow-up"></i></a>
+		</div>
 	</main>
 
 	<c:import url="footer.jsp"/>

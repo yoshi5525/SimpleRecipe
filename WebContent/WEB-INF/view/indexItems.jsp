@@ -19,11 +19,11 @@
 %>
 
 <c:forEach var="i" begin="0" end="2">
-	<section class=" bg-<c:out value="${colors[i]}" />">
+	<section class=" bg-<c:out value="${colors[i]}" /> pb-4">
 		<div class="container py-2">
-			<div class="row pt-4">
+			<p class="h1 font-weight-bold text-center mt-5"><c:out value="${tagNames[i]}" /></p>
+			<div class="row pt-3">
 				<div class="main-img-box col-lg-4 mb-4">
-					<p class="h4 font-weight-bold"><c:out value="${tagNames[i]}" /></p>
 					<div class="main-tag-img center-block">
 						<img src="images/<c:out value="${tags[i]}" />Food.jpg" alt="<c:out value="${tagNames[i]}" />の画像" class="img-fluid center-block">
 					</div>

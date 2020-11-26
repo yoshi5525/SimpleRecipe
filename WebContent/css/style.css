@@ -189,6 +189,27 @@ header h1 img:hover {
 
 
 
+#page_top {
+	position: fixed;
+	bottom: 50px;
+	right: 30px;
+}
+
+#page_top i {
+	color: white;
+	background-color: blue;
+	border-radius: 50%;
+	width: 70px;
+	height: 70px;
+	padding-top: 10px;
+	padding-left: 13px;
+}
+
+#page_top i:before {
+	font-size: 50px;
+}
+
+
 footer button {
 	background-color: #f1f5bc;
 	border: none;
@@ -199,8 +220,20 @@ footer button:focus {
 	outline: 0;
 }
 
-
-
 .form-require {
     vertical-align: top;
+}
+
+
+
+@media screen and (min-width: 1300px) {
+	#page_top {
+		right: 100px;
+	}
+}
+
+@media screen and (min-width: 1800px) {
+	#page_top {
+		right: 300px;
+	}
 }

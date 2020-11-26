@@ -30,6 +30,12 @@ public class MenuSearchServlet extends HttpServlet {
 		MenuDao dao = DaoFactory.createMenuDao();
 		try {
 			List<Menu> menus = dao.findSearchAll(searchName);
+
+			if (menus.size() == 0) {
+				response.sendRedirect("index");
+				return;
+			};
+
 			request.setAttribute("menus", menus);
 			request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
 		} catch (Exception e) {
