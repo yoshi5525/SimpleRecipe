@@ -3,7 +3,7 @@
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 
-<header class="bg-light-yellow py-3">
+<header class="bg-light-yellow py-3" id="header">
     <div class="container">
         <div class="row">
             <h1 class="h2 mb-0 col-9 col-md-5">

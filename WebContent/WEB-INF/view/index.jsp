@@ -10,6 +10,7 @@
 <title>教えて！味付けアプリ</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,6 +35,9 @@
         <c:import url="indexItems.jsp">
 			<c:param name="menus" value="${menus}" />
 		</c:import>
+		<div id="page_top">
+			<a href="#header"><i class="fas fa-arrow-up"></i></a>
+		</div>
     </main>
 
     <c:import url="footer.jsp"/>
