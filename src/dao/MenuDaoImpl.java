@@ -166,7 +166,6 @@ public class MenuDaoImpl implements MenuDao {
 				String replacedFoodstuff = strFoodstuff.replaceAll("、", "\n･");
 				replacedFoodstuff = replacedFoodstuff.replaceFirst("", "･");
 				menu.setFoodstuff(replacedFoodstuff);
-
 				String strRecipe = menu.getRecipe();
 				String replacedRecipe = null;
 
@@ -175,8 +174,7 @@ public class MenuDaoImpl implements MenuDao {
 				String changeText = "";
 				for (int i = 1; i <= line + 1; i++) {
 					if (i < line + 1) {
-						changeText = arrayRecipe[i - 1].replaceFirst("", i + ":");
-						changeText += arrayRecipe[i - 1].replaceFirst("$", "\n\n");
+						changeText = arrayRecipe[i - 1].replaceFirst("", i + ":").replaceFirst("$", "\n\n");
 						replacedRecipe += changeText;
 					} else {
 						changeText = arrayRecipe[i - 1].replaceFirst("", i + ":");
