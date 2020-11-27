@@ -6,7 +6,7 @@ $(function() {
 	}
 
 	var foodStuffLine = $("#foodstuff-text").val().match(/･/g).length * 30;
-	var recipeLine = $("#recipe-text").val().match(/:/g).length * 80;
+	var recipeLine = $("#recipe-text").val().match(/:/g).length * 55;
 	$("#foodstuff-text").height(foodStuffLine);
 	$("#recipe-text").height(recipeLine);
 

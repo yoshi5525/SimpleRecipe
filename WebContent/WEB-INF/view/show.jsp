@@ -19,7 +19,7 @@
 			<div class="container bg-light-skyblue p-5">
 				<div class="row">
 					<div class="recipe-left-box mx-auto mb-5 col-lg-5">
-						<p class="h2 font-weight-bold mb-4"><c:out value="${menu.name}" /></p>
+						<p class="h2 font-weight-bold mb-4 text-center"><c:out value="${menu.name}" /></p>
 						<div class="recipe-img">
 							<img src="<%= request.getContextPath() %>/images/uploads/<c:out value="${menu.image}" />" alt="料理の写真" class="img-fluid center-block">
 						</div>
@@ -61,7 +61,7 @@
 									<p class="text-danger font-weight-bold h4 mb-5 bg-light-pink" id="calc-message"></p>
 								</form>
 							</div>
-							<div class="recipe-result-box">
+							<div class="recipe-result-box mb-5">
 								<p class="h4">必要調味料</p>
 								<p class="font-weight-bold">
 									※あくまで目安です。<br>
@@ -72,19 +72,24 @@
 									<input type="number" value="${menu_food.quantity}" disabled class="registered-food-quantity text-right bg-light" style="width: 120px; font-size: 20px;"> ｇ<br>
 								</c:forEach>
 							</div>
-						</div>
-						<div class="recipe-list-box">
-							<div class="foodstuff-approximation">
-								<p class="h4">目安の材料</p>
-								<p>※食材の種類や分量はお好みで調整してください</p>
-								<textarea class="col-10 ml-2 bg-light" id="foodstuff-text" disabled><c:out value="${menu.foodstuff}" /></textarea>
+							<div class="recipe-list-box mb-5">
+								<div class="foodstuff-approximation">
+									<p>※食材の種類や分量はお好みで調整してください</p>
+									<textarea class="col-10 ml-2 bg-light" id="foodstuff-text" disabled><c:out value="${menu.foodstuff}" /></textarea>
+								</div>
+								<div class="recipe-approximation">
+									<p class="h4 mt-5">目安のレシピ</p>
+									<p>※お好みで調整してください</p>
+									<textarea class="col-10 ml-2 bg-light" id="recipe-text" disabled style="overflow: auto;"><c:out value="${menu.recipe}" /></textarea>
+								</div>
 							</div>
-							<div class="recipe-approximation">
-								<p class="h4 mt-5">目安のレシピ</p>
-								<p>※お好みで調整してください</p>
-								<textarea class="col-10 ml-2 bg-light" id="recipe-text" disabled><c:out value="${menu.recipe}" /></textarea>
+							<div class="flaber-info">
+								<p class="h4">各料理ごとの塩分濃度</p>
+								<p>※こちらを参考に味付け基準を算出しております</p>
+								<textarea class="col-10 ml-2 bg-light-pink" rows="6" disabled>主菜：1.0～1.2％&NewLine;副菜：0.6～0.9％&NewLine;汁物：0.7～1.0％&NewLine;飯物：0.7～0.9％&NewLine;etc...</textarea>
 							</div>
 						</div>
+
 						<c:if test="${menu.userId == loginUserId}">
 							<p class="mb-0 mt-4">
 								<a href="edit?id=<c:out value="${menu.id}" />"><button type="button">編集する</button></a>
