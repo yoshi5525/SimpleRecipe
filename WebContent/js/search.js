@@ -84,7 +84,7 @@ $(function() {
 		})
 	});
 
-	$("#search-box").blur(function() {
+	$('body').click(function() {
 		$(".none-item").remove();
 		$("#result-box").css('display', 'none');
 	});

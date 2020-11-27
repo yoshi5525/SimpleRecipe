@@ -25,11 +25,10 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("UTF-8");
-
-		HttpSession session = request.getSession();
-		String loginStatus = (String) session.getAttribute("loginStatus");
-		if (loginStatus == null) {
-			request.setAttribute("loginStatus", loginStatus);
+		String requestLogin = request.getParameter("request-login");
+		if (requestLogin == null) {
+			response.sendRedirect("index");
+			return;
 		}
 
 		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);

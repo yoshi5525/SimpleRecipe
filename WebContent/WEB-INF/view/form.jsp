@@ -93,7 +93,7 @@
 				</p>
 				<p class="mb-0">
 					<c:if test="${empty url}">
-						<input type="submit" value="登録する" id="register">
+						<input type="submit" value="投稿する" id="register">
 					</c:if>
 					<c:if test="${!empty url}">
 						<input type="submit" name="edit" value="更新する" id="register" class="mr-4">

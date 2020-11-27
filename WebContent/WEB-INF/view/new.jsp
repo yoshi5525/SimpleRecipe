@@ -9,6 +9,7 @@
 <title>教えて！味付けアプリ</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 
 <body>

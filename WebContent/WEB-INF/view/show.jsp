@@ -9,6 +9,7 @@
 <title>教えて！味付けアプリ</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 
 <body>
@@ -46,15 +47,15 @@
 											<p class="text-primary font-weight-bold h4 mb-5 bg-light-pink" id="calc-pre-message"></p>
 										</c:if>
 									</c:forEach>
-									<p class="text-danger mb-3">
+									<p class="mb-3">
 										<span class="h5 font-weight-bold food-weight">●食材総重量</span><br>
-										※使用する食材の合計重量を入力してください<br>
+										<span class="text-danger">※使用する食材の合計重量を入力してください</span><br>
 										<input type="number" value="100" min="0" max="100000" oninput="validity.valid||(value='');"
 											style="width: 100px;" class="text-right ml-2" id="calc-food"><span class="text-dark"> ｇ(グラム)</span>
 									</p>
-									<p class="text-danger mb-2">
+									<p class="mb-2">
 										<span class="h5 font-weight-bold food-items-weight">●鍋･ボウル重量</span><br>
-										※食材の重量計測時に使用した器具があればその重量を入力してください<br>
+										<span class="text-danger">※食材の重量計測時に使用した器具があればその重量を入力してください</span><br>
 										<input type="number" value="0" min="0" max="100000" oninput="validity.valid||(value='');"
 											style="width: 100px;" class="text-right ml-2" id="calc-items"><span class="text-dark"> ｇ(グラム)</span>
 									</p>
@@ -63,9 +64,8 @@
 							</div>
 							<div class="recipe-result-box mb-5">
 								<p class="h4">必要調味料</p>
-								<p class="font-weight-bold">
-									※あくまで目安です。<br>
-									※最初は調味料の8割を使用し、味が薄ければ追加するなどして目安としてご活用ください。
+								<p class="font-weight-bold text-danger">
+									※あくまで目安です。最初は調味料の8割を使用し、味が薄ければ追加するなどして目安としてご活用ください。
 								</p>
 								<c:forEach var="menu_food" items="${menu_foods}">
 									<p class="text-center d-inline-block mb-2 food-text" style="width: 160px;"><c:out value="${menu_food.foodName}" /></p>
@@ -74,19 +74,19 @@
 							</div>
 							<div class="recipe-list-box mb-5">
 								<div class="foodstuff-approximation">
-									<p>※食材の種類や分量はお好みで調整してください</p>
+									<p class="font-weight-bold text-danger">※食材の種類や分量はお好みで調整してください</p>
 									<textarea class="col-10 ml-2 bg-light" id="foodstuff-text" disabled><c:out value="${menu.foodstuff}" /></textarea>
 								</div>
 								<div class="recipe-approximation">
 									<p class="h4 mt-5">目安のレシピ</p>
-									<p>※お好みで調整してください</p>
+									<p class="font-weight-bold text-danger">※お好みで調整してください</p>
 									<textarea class="col-10 ml-2 bg-light" id="recipe-text" disabled style="overflow: auto;"><c:out value="${menu.recipe}" /></textarea>
 								</div>
 							</div>
 							<div class="flaber-info">
 								<p class="h4">各料理ごとの塩分濃度</p>
-								<p>※こちらを参考に味付け基準を算出しております</p>
-								<textarea class="col-10 ml-2 bg-light-pink" rows="6" disabled>主菜：1.0～1.2％&NewLine;副菜：0.6～0.9％&NewLine;汁物：0.7～1.0％&NewLine;飯物：0.7～0.9％&NewLine;etc...</textarea>
+								<p class="font-weight-bold text-danger">※こちらを参考に味付け基準を算出しております</p>
+								<textarea class="col-10 ml-2 bg-light-pink" rows="5" disabled>主菜：1.0～1.2％&NewLine;副菜：0.6～0.9％&NewLine;汁物：0.7～1.0％&NewLine;飯物：0.7～0.9％&NewLine;etc...</textarea>
 							</div>
 						</div>
 

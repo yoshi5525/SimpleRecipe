@@ -11,15 +11,17 @@ $(function() {
 		    }
 		}
 	})())
+	
 
 	$("#logout-btn").click(function() {
-		if (!confirm("本当に削除しますか？")) {
+		if (!confirm("ログアウトしますか？")) {
     		return false;
     	} else {
     		return ture;
     	}
 	})
 
+	
 
 	$("#menu-img").change(function(e) {
         const file = e.target.files[0];
@@ -45,6 +47,7 @@ $(function() {
     });
 
 
+	
 	$(".add").click(function() {
         const addForm = $(this).parent().clone(true).insertAfter($(this).parent());
         $(this).parent().next().find(".select-numbers").val("0.0");
@@ -59,6 +62,7 @@ $(function() {
     });
 
 
+    
     $("#register").click(function() {
     	var menuFoodLength = $(".menu-food").length;
     	$("#menu-food-length").val(menuFoodLength);

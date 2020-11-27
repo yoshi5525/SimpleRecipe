@@ -15,6 +15,16 @@ li {
   list-style: none;
 }
 
+header {
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+}
+
+main {
+	padding-top: 95px;
+}
+
 
 
 .w-30 {
@@ -224,7 +234,19 @@ footer button:focus {
     vertical-align: top;
 }
 
+#login-btn {
+	background-color: transparent;
+	border: none;
+	outline: 0;
+}
 
+
+
+@media screen and (max-width: 893px) {
+	.main-menu-box .tag-items:nth-child(2n) {
+		flex-flow: row-reverse;
+	}
+}
 
 @media screen and (min-width: 1300px) {
 	#page_top {

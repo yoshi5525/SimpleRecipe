@@ -23,14 +23,14 @@
 		<div class="container py-2">
 			<p class="h1 font-weight-bold text-center mt-5"><c:out value="${tagNames[i]}" /></p>
 			<div class="row pt-3">
-				<div class="main-img-box col-lg-4 mb-4">
+				<div class="main-img-box col-lg-4 mb-5">
 					<div class="main-tag-img center-block">
 						<img src="images/<c:out value="${tags[i]}" />Food.jpg" alt="<c:out value="${tagNames[i]}" />の画像" class="img-fluid center-block">
 					</div>
 				</div>
 				<div class="main-menu-box col-lg-8">
 					<c:forEach var="j" begin="0" end="2">
-						<div class="row mb-2">
+						<div class="row mb-5 tag-items">
 							<div class="main-recipe-img col-3 center-block">
 								<img src="images/<c:out value="${tags[i]}"/><c:out value="${types[j]}"/>.jpg" alt="調理法の画像" class="img-fluid">
 								<p class="font-weight-bold"><c:out value="${typeNames[j]}" /></p>
