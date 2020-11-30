@@ -39,7 +39,8 @@ Simple Recipe
 * JUnit
 * Mockito
 * Tomcat
-* MySQL など
+* MySQL
+* Github など
 
 ## 課題や今後実装したい機能
 現在の検索機能は料理の名前を元に行うため、料理のカテゴリーでも検索ができる機能。  
