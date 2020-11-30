@@ -179,6 +179,14 @@ header h1 img:hover {
   left: 20%;
 }
 
+.visual-img .video:nth-of-type(1) {
+	display: block;
+}
+
+.visual-img .video:nth-of-type(2) {
+	display: none;
+}
+
 
 
 #calc-food,
@@ -241,6 +249,15 @@ footer button:focus {
 }
 
 
+
+@media screen and (max-width: 893px) {
+	.visual-img .video:nth-of-type(1) {
+		display: none;
+	}
+	.visual-img .video:nth-of-type(2) {
+		display: block;
+	}
+}
 
 @media screen and (max-width: 893px) {
 	.main-menu-box .tag-items:nth-child(2n) {

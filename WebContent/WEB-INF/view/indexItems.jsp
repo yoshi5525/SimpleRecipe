@@ -19,7 +19,7 @@
 %>
 
 <c:forEach var="i" begin="0" end="2">
-	<section class=" bg-<c:out value="${colors[i]}" /> pb-4">
+	<section class=" bg-<c:out value="${colors[i]}" /> p-2 pb-4">
 		<div class="container py-2">
 			<p class="h1 font-weight-bold text-center mt-5"><c:out value="${tagNames[i]}" /></p>
 			<div class="row pt-3">

@@ -28,7 +28,10 @@
 		    		</div>
 			        <div id="gray-display"></div>
 			    	<div class="video center-block">
-			    		<video src="images/simple-recipe.mp4" controls autoplay muted id="video"></video>
+			    		<video src="images/simple-recipe.mp4" controls autoplay muted id="video" class="video"></video>
+			        </div>
+			    	<div class="video center-block d-md-none">
+			    		<video src="images/simple-recipe-phone.mp4" controls autoplay muted id="video" class="video"></video>
 			        </div>
 		        </div>
 	        </div>
